@@ -407,10 +407,8 @@ section {
 }
 
 /* ── EXPERIENCE ──────────────────────────── */
+/* ── EXPERIENCE ──────────────────────────── */
 .exp-item {
-  display: grid;
-  grid-template-columns: 130px 1fr;
-  gap: 0 20px;
   padding: 18px 16px;
   border-radius: 8px;
   border: 1px solid transparent;
@@ -424,17 +422,32 @@ section {
   -webkit-backdrop-filter: var(--card-hover-blur);
   box-shadow: var(--card-hover-glow);
 }
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 3px;
+}
+.exp-header h3 {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+}
 .exp-date {
   font-size: 11.5px;
   color: var(--muted);
-  padding-top: 3px;
-  line-height: 1.4;
+  font-weight: 500;
 }
-.exp-body h3 { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
-.exp-body .org { font-size: 13px; color: var(--subtle); margin-bottom: 10px; }
-.exp-body p { font-size: 13.5px; color: var(--muted); line-height: 1.7; }
-.exp-body ul { padding-left: 16px; }
-.exp-body li { font-size: 13.5px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
+.exp-item .org {
+  font-size: 13px;
+  color: var(--subtle);
+  margin-bottom: 10px;
+}
+.exp-item p { font-size: 13.5px; color: var(--muted); line-height: 1.7; }
+.exp-item ul { padding-left: 16px; }
+.exp-item li { font-size: 13.5px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
 .tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
 .tag {
   font-size: 11px;
@@ -501,14 +514,11 @@ section {
 
 /* ── PROJECTS ────────────────────────────── */
 .proj-item {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  padding: 20px 18px;
+  padding: 18px 16px;
   border-radius: 8px;
   border: 1px solid transparent;
   transition: background 0.25s ease, backdrop-filter 0.25s ease, -webkit-backdrop-filter 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-  margin-bottom: 8px;
+  margin-bottom: 2px;
 }
 .proj-item:hover {
   background: var(--card-hover-bg);
@@ -517,30 +527,7 @@ section {
   -webkit-backdrop-filter: var(--card-hover-blur);
   box-shadow: var(--card-hover-glow);
 }
-.proj-thumb {
-  width: 100%;
-  max-width: 100%;
-  height: 200px;
-  border-radius: 6px;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  background: var(--surface);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
-}
-.proj-thumb img {
-  width: 100%;
-  height: 100%;
-  max-height: 184px;
-  object-fit: contain;
-  display: block;
-}
-.proj-thumb.icon-thumb {
-  display: flex; align-items: center; justify-content: center;
-}
-.proj-body h3 {
+.proj-item h3 {
   font-size: 15px;
   font-weight: 500;
   color: var(--text);
@@ -549,9 +536,9 @@ section {
   gap: 6px;
   margin-bottom: 6px;
 }
-.proj-body h3 .ext-icon { color: var(--muted); width: 13px; height: 13px; flex-shrink: 0; transition: color 0.15s; }
-.proj-item:hover .proj-body h3 .ext-icon { color: var(--accent); }
-.proj-body p { font-size: 13.5px; color: var(--muted); line-height: 1.7; }
+.proj-item h3 .ext-icon { color: var(--muted); width: 13px; height: 13px; flex-shrink: 0; transition: color 0.15s; }
+.proj-item:hover h3 .ext-icon { color: var(--accent); }
+.proj-item p { font-size: 13.5px; color: var(--muted); line-height: 1.7; }
 .proj-link {
   display: inline-flex;
   align-items: center;
@@ -795,74 +782,69 @@ footer {
     <p class="sec-label">Experience</p>
 
     <div class="exp-item">
-      <div class="exp-date">Dec 2025&ndash;<br>2026</div>
-      <div class="exp-body">
-        <div style="margin-bottom:8px;">
-          <div style="display:inline-flex; align-items:center; justify-content:center; background:#ffffff; padding:4px 10px; border-radius:6px; border:1px solid var(--border); max-width:140px;">
-            <img src="assets/bipedal_humanoid/Xterra_Logo.jpg" alt="Xterra Robotics" style="width:100%; height:auto; max-height:26px; object-fit:contain;" loading="lazy">
-          </div>
-        </div>
+      <div class="exp-header">
         <h3>Reinforcement Learning &amp; Mechatronics Intern</h3>
-        <p class="org">Xterra Robotics &times; IIT Kanpur (DRDO-funded Bipedal Humanoid project)</p>
-        <ul>
-          <li>Authored the URDF/MJCF model (12-DOF bipedal lower body), specifying inertial and collision properties for simulation stability.</li>
-          <li>Developed a physics-based gait scaling algorithm minimising Cost of Transport across joint work, motor heating, and foot impact losses.</li>
-          <li>Extended the <b>ASIMOV</b> framework for bipedal humanoid locomotion using <b>RSL-RL</b> and GPU-accelerated <b>MuJoCo (mjwarp)</b> across seven gait experiments, achieving stable velocity tracking up to 3&nbsp;m/s in simulation.</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tag">ASIMOV</span>
-          <span class="tag">RSL-RL</span>
-          <span class="tag">mjwarp</span>
-          <span class="tag">MuJoCo</span>
-          <span class="tag">PPO</span>
-          <span class="tag">URDF / MJCF</span>
-          <span class="tag">Cost of Transport</span>
-          <span class="tag green">IIT Kanpur</span>
-        </div>
+        <span class="exp-date">Dec 2025 &ndash; 2026</span>
+      </div>
+      <p class="org">Xterra Robotics &times; IIT Kanpur (DRDO-funded Bipedal Humanoid project)</p>
+      <ul>
+        <li>Authored the URDF/MJCF model (12-DOF bipedal lower body), specifying inertial and collision properties for simulation stability.</li>
+        <li>Developed a physics-based gait scaling algorithm minimising Cost of Transport across joint work, motor heating, and foot impact losses.</li>
+        <li>Extended the <b>ASIMOV</b> framework for bipedal humanoid locomotion using <b>RSL-RL</b> and GPU-accelerated <b>MuJoCo (mjwarp)</b> across seven gait experiments, achieving stable velocity tracking up to 3&nbsp;m/s in simulation.</li>
+      </ul>
+      <div class="tag-row">
+        <span class="tag">ASIMOV</span>
+        <span class="tag">RSL-RL</span>
+        <span class="tag">mjwarp</span>
+        <span class="tag">MuJoCo</span>
+        <span class="tag">PPO</span>
+        <span class="tag">URDF / MJCF</span>
+        <span class="tag">Cost of Transport</span>
+        <span class="tag green">IIT Kanpur</span>
+      </div>
 
-        <p class="video-section-label" style="margin-top:20px;">Demo videos</p>
-        <div class="video-stack">
-          <div class="video-card">
-            <video controls preload="metadata" muted playsinline>
-              <source src="assets/bipedal_humanoid/COT_Gait_Angad.mp4" type="video/mp4">
-            </video>
-            <div class="vcap"><b>Bipedal Humanoid &mdash; CoT-Optimised Gait</b>Walking policy trained with cost-of-transport stride objective</div>
-          </div>
-          <div class="video-card">
-            <video controls preload="metadata" muted playsinline>
-              <source src="assets/bipedal_humanoid/Angad_Dynamic_Squatting.mp4" type="video/mp4">
-            </video>
-            <div class="vcap"><b>Bipedal Humanoid &mdash; Dynamic Squatting</b>Dynamic trajectory validation in simulation</div>
-          </div>
+      <p class="video-section-label" style="margin-top:20px;">Demo videos</p>
+      <div class="video-stack">
+        <div class="video-card">
+          <video controls preload="metadata" muted playsinline>
+            <source src="assets/bipedal_humanoid/COT_Gait_Angad.mp4" type="video/mp4">
+          </video>
+          <div class="vcap"><b>Bipedal Humanoid &mdash; CoT-Optimised Gait</b>Walking policy trained with cost-of-transport stride objective</div>
+        </div>
+        <div class="video-card">
+          <video controls preload="metadata" muted playsinline>
+            <source src="assets/bipedal_humanoid/Angad_Dynamic_Squatting.mp4" type="video/mp4">
+          </video>
+          <div class="vcap"><b>Bipedal Humanoid &mdash; Dynamic Squatting</b>Dynamic trajectory validation in simulation</div>
         </div>
       </div>
     </div>
 
     <div class="exp-item" style="margin-top:6px;">
-      <div class="exp-date">Oct 2024&ndash;<br>Jun 2026</div>
-      <div class="exp-body">
+      <div class="exp-header">
         <h3>Mechanical Design Lead</h3>
-        <p class="org">Robocon Team, Amrita Vishwa Vidyapeetham</p>
-        <ul>
-          <li>Design, modelling, and manufacture of mechanical systems for autonomous and manually operated competition robots.</li>
-          <li>Led a multidisciplinary student team; qualified for the ABU Robocon Semifinals in both 2025 and 2026.</li>
-        </ul>
-        <div class="tag-row">
-          <span class="tag">Fusion 360</span>
-          <span class="tag">RecurDyn</span>
-          <span class="tag">Mechanical Design</span>
-          <span class="tag gold">Robocon 2025 &amp; 2026 Semifinalist</span>
-        </div>
+        <span class="exp-date">Oct 2024 &ndash; Jun 2026</span>
+      </div>
+      <p class="org">Robocon Team, Amrita Vishwa Vidyapeetham</p>
+      <ul>
+        <li>Design, modelling, and manufacture of mechanical systems for autonomous and manually operated competition robots.</li>
+        <li>Led a multidisciplinary student team; qualified for the ABU Robocon Semifinals in both 2025 and 2026.</li>
+      </ul>
+      <div class="tag-row">
+        <span class="tag">Fusion 360</span>
+        <span class="tag">RecurDyn</span>
+        <span class="tag">Mechanical Design</span>
+        <span class="tag gold">Robocon 2025 &amp; 2026 Semifinalist</span>
       </div>
     </div>
 
     <div class="exp-item" style="margin-top:6px;">
-      <div class="exp-date">2023&ndash;<br>Present</div>
-      <div class="exp-body">
+      <div class="exp-header">
         <h3>B.Tech in Robotics and Artificial Intelligence</h3>
-        <p class="org">Amrita Vishwa Vidyapeetham, Bengaluru &mdash; CGPA 9.16</p>
-        <p>Class Representative &middot; ACROM Club Executive &middot; Robocon Design Lead</p>
+        <span class="exp-date">2023 &ndash; Present</span>
       </div>
+      <p class="org">Amrita Vishwa Vidyapeetham, Bengaluru &mdash; CGPA 9.16</p>
+      <p>Class Representative &middot; ACROM Club Executive &middot; Robocon Design Lead</p>
     </div>
   </section>
 
@@ -871,169 +853,139 @@ footer {
     <p class="sec-label">Projects</p>
 
     <div class="proj-item">
-      <div class="proj-thumb">
-        <img src="assets/quadruped/Bioloid_Quadruped.png" alt="Bioloid Quadruped" loading="lazy">
+      <h3>
+        Bioloid Quadruped RL
+        <svg class="ext-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+      </h3>
+      <p>Hierarchical RL framework for an 8-DOF quadruped: low-level continuous SAC experts specialise in individual motor primitives (walk, turn left, turn right); a high-level Discrete-SAC navigator selects among them every 0.5&nbsp;s given the relative target waypoint. Training and evaluation across PyBullet and MuJoCo achieved stable waypoint navigation with roughly 100&times; the sample efficiency of a monolithic policy.</p>
+      <div class="tag-row">
+        <span class="tag">SAC</span><span class="tag">PyBullet</span><span class="tag">MuJoCo</span><span class="tag">PyTorch</span>
       </div>
-      <div class="proj-body">
-        <h3>
-          Bioloid Quadruped RL
-          <svg class="ext-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-        </h3>
-        <p>Hierarchical RL framework for an 8-DOF quadruped: low-level continuous SAC experts specialise in individual motor primitives (walk, turn left, turn right); a high-level Discrete-SAC navigator selects among them every 0.5&nbsp;s given the relative target waypoint. Training and evaluation across PyBullet and MuJoCo achieved stable waypoint navigation with roughly 100&times; the sample efficiency of a monolithic policy.</p>
-        <div class="tag-row">
-          <span class="tag">SAC</span><span class="tag">PyBullet</span><span class="tag">MuJoCo</span><span class="tag">PyTorch</span>
-        </div>
-        <div style="margin-top:14px;">
-          <div class="video-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px,1fr));">
-            <div class="video-card">
-              <video controls preload="metadata" muted playsinline>
-                <source src="assets/quadruped/Bioloid_Quadruped_Controlled.mp4" type="video/mp4">
-              </video>
-              <div class="vcap"><b>Quadruped &mdash; Controlled Navigation</b>Hierarchical SAC policy in simulation</div>
-            </div>
+      <div style="margin-top:14px;">
+        <div class="video-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px,1fr));">
+          <div class="video-card">
+            <video controls preload="metadata" muted playsinline>
+              <source src="assets/quadruped/Bioloid_Quadruped_Controlled.mp4" type="video/mp4">
+            </video>
+            <div class="vcap"><b>Quadruped &mdash; Controlled Navigation</b>Hierarchical SAC policy in simulation</div>
           </div>
         </div>
-        <a class="proj-link" href="https://github.com/NK2511/Bioloid_Quadruped_RL" target="_blank" rel="noopener">
-          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
-          github.com/NK2511/Bioloid_Quadruped_RL
-        </a>
       </div>
-    </div>
-
-
-    <div class="proj-item" style="margin-top:4px;">
-      <div class="proj-thumb">
-        <img src="assets/path_planning/PSO_LBFGS_Image.png" alt="PSO L-BFGS Path Planning" loading="lazy">
-      </div>
-      <div class="proj-body">
-        <h3>
-          Hybrid L-BFGS &ndash; PSO Path Planning
-          <svg class="ext-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
-        </h3>
-        <p>Hybrid global/local optimisation method for joint-space path planning in redundant serial revolute manipulators. Particle Swarm Optimisation provides broad coverage to escape local minima; L-BFGS-B refines the best candidate using gradient information, combining the two approaches for efficient, high-quality solutions. <em>Accepted, IEEE.</em></p>
-        <div class="tag-row">
-          <span class="tag">PSO</span><span class="tag">L-BFGS</span><span class="tag">Python</span><span class="tag green">IEEE Publication</span>
-        </div>
-        <div style="margin-top:14px;">
-          <div class="video-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px,1fr));">
-            <div class="video-card">
-              <video controls preload="metadata" muted playsinline>
-                <source src="assets/path_planning/PSO_LBFGS.mp4" type="video/mp4">
-              </video>
-              <div class="vcap"><b>Hybrid PSO &ndash; L-BFGS-B Planning</b>Dynamic trajectory optimisation and convergence</div>
-            </div>
-          </div>
-        </div>
-        <a class="proj-link" href="https://github.com/NK2511/Hybrid-LBFGS-PSO-Path-Planning-Implementation" target="_blank" rel="noopener">
-          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
-          github.com/NK2511/Hybrid-LBFGS-PSO-Path-Planning-Implementation
-        </a>
-      </div>
+      <a class="proj-link" href="https://github.com/NK2511/Bioloid_Quadruped_RL" target="_blank" rel="noopener">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+        github.com/NK2511/Bioloid_Quadruped_RL
+      </a>
     </div>
 
     <div class="proj-item" style="margin-top:4px;">
-      <div class="proj-thumb">
-        <img src="assets/turmeric/Turmeric_Symbol.png" alt="Turmeric Classification and Tracking" loading="lazy">
+      <h3>
+        Hybrid L-BFGS &ndash; PSO Path Planning
+        <svg class="ext-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+      </h3>
+      <p>Hybrid global/local optimisation method for joint-space path planning in redundant serial revolute manipulators. Particle Swarm Optimisation provides broad coverage to escape local minima; L-BFGS-B refines the best candidate using gradient information, combining the two approaches for efficient, high-quality solutions. <em>Accepted, IEEE.</em></p>
+      <div class="tag-row">
+        <span class="tag">PSO</span><span class="tag">L-BFGS</span><span class="tag">Python</span><span class="tag green">IEEE Publication</span>
       </div>
-      <div class="proj-body">
-        <h3>Automatic Turmeric Rhizome Classification &amp; Spatial Tracking</h3>
-        <p>Industrial computer vision framework developed with industry partners for automated quality grading and spatial tracking of irregular turmeric rhizomes on operational sorting conveyors. Combines high-speed instance segmentation with deep feature classification for four-class grading (Type&nbsp;1, Type&nbsp;2, Type&nbsp;3, Type&nbsp;4) and parallax-compensated kinematic tracking, streaming real-time coordinates for robotic delta pick-and-place actuation.</p>
-        <div class="tag-row">
-          <span class="tag green">Industrial Deployment</span>
-          <span class="tag">PyTorch</span>
-          <span class="tag">YOLOv8</span>
-          <span class="tag">OpenCV</span>
-          <span class="tag">Delta Robot Telemetry</span>
+      <div style="margin-top:14px;">
+        <div class="video-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px,1fr));">
+          <div class="video-card">
+            <video controls preload="metadata" muted playsinline>
+              <source src="assets/path_planning/PSO_LBFGS.mp4" type="video/mp4">
+            </video>
+            <div class="vcap"><b>Hybrid PSO &ndash; L-BFGS-B Planning</b>Dynamic trajectory optimisation and convergence</div>
+          </div>
         </div>
-        <div style="margin-top:14px;">
-          <div class="video-stack">
-            <div class="video-card">
-              <video controls preload="metadata" muted playsinline>
-                <source src="assets/turmeric/turmeric_tracking_5sec_demo.mp4" type="video/mp4">
-              </video>
-              <div class="vcap"><b>Parallax-Compensated Kinematic Tracking</b>Real-time spatial piece tracking across conveyor flow (60 FPS)</div>
-            </div>
-            <div class="video-card">
-              <img src="assets/turmeric/turmeric_classification_rgby_demo.png" alt="Two-Tier Morphological Segmentation & RGBY Quality Grading" style="width:100%; aspect-ratio:16/9; object-fit:cover; display:block; background:var(--surface);">
-              <div class="vcap"><b>Two-Tier Quality Classification (RGBY)</b>Morphological segmentation &amp; industrial quality grading</div>
-            </div>
+      </div>
+      <a class="proj-link" href="https://github.com/NK2511/Hybrid-LBFGS-PSO-Path-Planning-Implementation" target="_blank" rel="noopener">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+        github.com/NK2511/Hybrid-LBFGS-PSO-Path-Planning-Implementation
+      </a>
+    </div>
+
+    <div class="proj-item" style="margin-top:4px;">
+      <h3>Automatic Turmeric Rhizome Classification &amp; Spatial Tracking</h3>
+      <p>Industrial computer vision framework developed with industry partners for automated quality grading and spatial tracking of irregular turmeric rhizomes on operational sorting conveyors. Combines high-speed instance segmentation with deep feature classification for four-class grading (Type&nbsp;1, Type&nbsp;2, Type&nbsp;3, Type&nbsp;4) and parallax-compensated kinematic tracking, streaming real-time coordinates for robotic delta pick-and-place actuation.</p>
+      <div class="tag-row">
+        <span class="tag green">Industrial Deployment</span>
+        <span class="tag">PyTorch</span>
+        <span class="tag">YOLOv8</span>
+        <span class="tag">OpenCV</span>
+        <span class="tag">Delta Robot Telemetry</span>
+      </div>
+      <div style="margin-top:14px;">
+        <div class="video-stack">
+          <div class="video-card">
+            <video controls preload="metadata" muted playsinline>
+              <source src="assets/turmeric/turmeric_tracking_5sec_demo.mp4" type="video/mp4">
+            </video>
+            <div class="vcap"><b>Parallax-Compensated Kinematic Tracking</b>Real-time spatial piece tracking across conveyor flow (60 FPS)</div>
+          </div>
+          <div class="video-card">
+            <img src="assets/turmeric/turmeric_classification_rgby_demo.png" alt="Two-Tier Morphological Segmentation & RGBY Quality Grading" style="width:100%; aspect-ratio:16/9; object-fit:cover; display:block; background:var(--surface);">
+            <div class="vcap"><b>Two-Tier Quality Classification (RGBY)</b>Morphological segmentation &amp; industrial quality grading</div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="proj-item" style="margin-top:4px;">
-      <div class="proj-thumb">
-        <img src="assets/chess_robot/chess_robot_v2.png" alt="Five-Bar Chess Playing Robot" loading="lazy">
+      <h3>Five-Bar Mechanism Chess Playing Robot</h3>
+      <p>A low-cost, vision-guided autonomous chess-playing robot driven by a planar five-bar parallel mechanism. Integrates an overhead computer vision pipeline for real-time board state estimation and move validation with an AI engine for move planning and inverse kinematics for physical piece actuation.</p>
+      <div class="tag-row">
+        <span class="tag">Five-Bar Linkage</span>
+        <span class="tag">Parallel Kinematics</span>
+        <span class="tag">Computer Vision</span>
+        <span class="tag">AI Move Planning</span>
+        <span class="tag">Inverse Kinematics</span>
       </div>
-      <div class="proj-body">
-        <h3>
-          Five-Bar Mechanism Chess Playing Robot
-        </h3>
-        <p>A low-cost, vision-guided autonomous chess-playing robot driven by a planar five-bar parallel mechanism. Integrates an overhead computer vision pipeline for real-time board state estimation and move validation with an AI engine for move planning and inverse kinematics for physical piece actuation.</p>
-        <div class="tag-row">
-          <span class="tag">Five-Bar Linkage</span>
-          <span class="tag">Parallel Kinematics</span>
-          <span class="tag">Computer Vision</span>
-          <span class="tag">AI Move Planning</span>
-          <span class="tag">Inverse Kinematics</span>
-        </div>
-        <div style="margin-top:14px;">
-          <div class="video-stack">
-            <div class="video-card">
-              <video controls preload="metadata" muted playsinline>
-                <source src="assets/chess_robot/chess_robot_v1_demo.mp4" type="video/mp4">
-              </video>
-              <div class="vcap"><b>Five-Bar Chess Robot V1</b></div>
-            </div>
-            <div class="video-card">
-              <video controls preload="metadata" muted playsinline>
-                <source src="assets/chess_robot/chess_robot_v2_demo.mp4" type="video/mp4">
-              </video>
-              <div class="vcap"><b>Five-Bar Chess Robot V2</b></div>
-            </div>
+      <div style="margin-top:14px;">
+        <div class="video-stack">
+          <div class="video-card">
+            <video controls preload="metadata" muted playsinline>
+              <source src="assets/chess_robot/chess_robot_v1_demo.mp4" type="video/mp4">
+            </video>
+            <div class="vcap"><b>Five-Bar Chess Robot V1</b></div>
+          </div>
+          <div class="video-card">
+            <video controls preload="metadata" muted playsinline>
+              <source src="assets/chess_robot/chess_robot_v2_demo.mp4" type="video/mp4">
+            </video>
+            <div class="vcap"><b>Five-Bar Chess Robot V2</b></div>
           </div>
         </div>
       </div>
     </div>
 
     <div class="proj-item" style="margin-top:4px;">
-      <div class="proj-thumb">
-        <img src="assets/drone_transformer/Drone_wallpaper.jpg" alt="Drone-Car Transformer" loading="lazy">
+      <h3>Hybrid Drone-Car Transformer</h3>
+      <p>Designed and fabricated a reconfigurable multimodal robot capable of flying as a drone and driving as a ground vehicle using an active transformation mechanism.</p>
+      <div class="tag-row">
+        <span class="tag gold">Patent Pending</span>
+        <span class="tag">Mechanical Design</span>
+        <span class="tag">Fusion 360</span>
+        <span class="tag">Rapid Prototyping</span>
+        <span class="tag">Multimodal Robotics</span>
+        <span class="tag">UAV / UGV Hybrid</span>
       </div>
-      <div class="proj-body">
-        <h3>
-          Hybrid Drone-Car Transformer
-        </h3>
-        <p>Designed and fabricated a reconfigurable multimodal robot capable of flying as a drone and driving as a ground vehicle using an active transformation mechanism.</p>
-        <div class="tag-row">
-          <span class="tag gold">Patent Pending</span>
-          <span class="tag">Mechanical Design</span>
-          <span class="tag">Fusion 360</span>
-          <span class="tag">Rapid Prototyping</span>
-          <span class="tag">Multimodal Robotics</span>
-          <span class="tag">UAV / UGV Hybrid</span>
-        </div>
-        <div style="margin-top:14px;">
-          <div class="video-stack">
-            <div class="video-card">
-              <video controls preload="metadata" muted playsinline>
-                <source src="assets/drone_transformer/drone_cad_transformation.mp4" type="video/mp4">
-              </video>
-              <div class="vcap"><b>CAD Assembly Animation</b></div>
-            </div>
-            <div class="video-card">
-              <video controls preload="metadata" muted playsinline>
-                <source src="assets/drone_transformer/drone_hardware_transformation.mp4" type="video/mp4">
-              </video>
-              <div class="vcap"><b>First Flight Test</b></div>
-            </div>
-            <div class="video-card">
-              <video controls preload="metadata" muted playsinline>
-                <source src="assets/drone_transformer/drone_flight_ground_test.mp4" type="video/mp4">
-              </video>
-              <div class="vcap"><b>Ground Locomotion</b></div>
-            </div>
+      <div style="margin-top:14px;">
+        <div class="video-stack">
+          <div class="video-card">
+            <video controls preload="metadata" muted playsinline>
+              <source src="assets/drone_transformer/drone_cad_transformation.mp4" type="video/mp4">
+            </video>
+            <div class="vcap"><b>CAD Assembly Animation</b></div>
+          </div>
+          <div class="video-card">
+            <video controls preload="metadata" muted playsinline>
+              <source src="assets/drone_transformer/drone_hardware_transformation.mp4" type="video/mp4">
+            </video>
+            <div class="vcap"><b>First Flight Test</b></div>
+          </div>
+          <div class="video-card">
+            <video controls preload="metadata" muted playsinline>
+              <source src="assets/drone_transformer/drone_flight_ground_test.mp4" type="video/mp4">
+            </video>
+            <div class="vcap"><b>Ground Locomotion</b></div>
           </div>
         </div>
       </div>
