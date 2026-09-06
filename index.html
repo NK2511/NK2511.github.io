@@ -743,31 +743,16 @@ footer {
       </div>
       <div class="proj-body">
         <h3>Automatic Turmeric Rhizome Classification &amp; Spatial Tracking</h3>
-        <p>An end-to-end industrial computer vision and robotic sorting framework developed through a direct industrial partnership. Unlike standard open-source or Kaggle datasets, this system was engineered from custom on-site data gathered directly on active factory conveyor lines, tested and validated under real-world industrial conditions (variable lighting, soil dusting, piece clumping, and conveyor vibrations).</p>
-        
-        <ul style="margin-top:8px; padding-left:16px;">
-          <li style="font-size:13.5px; color:var(--muted); line-height:1.7; margin-bottom:4px;">
-            <b style="color:var(--subtle); font-weight:500;">On-Site Data Acquisition &amp; Two-Tier Vision:</b> Collected high-resolution in-situ industrial conveyor datasets. Designed a two-tier decoupled vision pipeline combining high-speed instance segmentation for contour extraction with a deep feature classifier in tailored color spaces for multi-class grading (Finger, Mother, Broken, Reject).
-          </li>
-          <li style="font-size:13.5px; color:var(--muted); line-height:1.7; margin-bottom:4px;">
-            <b style="color:var(--subtle); font-weight:500;">Parallax-Compensated Kinematic Tracking:</b> Physics-informed spatial tracking engine that models lens distortion and conveyor kinematic flow, maintaining robust identity persistence across high-density clumping, touch contacts, and occlusions.
-          </li>
-          <li style="font-size:13.5px; color:var(--muted); line-height:1.7; margin-bottom:4px;">
-            <b style="color:var(--subtle); font-weight:500;">Edge Deployment &amp; Delta Robot Actuation:</b> Optimized for real-time 60+ FPS edge execution using half-precision (FP16) CUDA tensor cores, streaming real-time millimetric spatial coordinates to drive downstream delta sorting robots.
-          </li>
-        </ul>
-
+        <p>Industrial computer vision framework developed with industry partners for automated quality grading and spatial tracking of irregular turmeric rhizomes on operational sorting conveyors. Combines high-speed instance segmentation with deep feature classification for four-class grading (Finger, Mother, Broken, Reject) and parallax-compensated kinematic tracking (60+ FPS on edge CUDA FP16), streaming real-time coordinates for robotic delta pick-and-place actuation.</p>
         <div class="tag-row">
-          <span class="tag green">Industrial Partnership</span>
-          <span class="tag">On-Site Deployment</span>
+          <span class="tag green">Industrial Deployment</span>
           <span class="tag">PyTorch</span>
           <span class="tag">YOLOv8</span>
           <span class="tag">OpenCV</span>
           <span class="tag">CUDA FP16</span>
           <span class="tag">Delta Robot Telemetry</span>
         </div>
-
-        <div style="margin-top:16px;">
+        <div style="margin-top:14px;">
           <div class="video-stack">
             <div class="video-card">
               <video controls preload="metadata" muted playsinline>
