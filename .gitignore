@@ -1,0 +1,7 @@
+# Presentation and scratch files
+*.pptx
+*.ppt
+*.py
+*.tmp
+.DS_Store
+Thumbs.db
