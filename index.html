@@ -360,9 +360,9 @@ section {
 .video-card:hover { border-color: rgba(56,189,248,0.3); }
 .video-card video {
   width: 100%;
+  height: auto;
   display: block;
-  aspect-ratio: 16/9;
-  object-fit: cover;
+  object-fit: contain;
   background: #000;
 }
 .video-card .vcap {
@@ -793,15 +793,15 @@ footer {
           <div class="video-stack">
             <div class="video-card">
               <video controls preload="metadata" muted playsinline>
-                <source src="assets/chess_robot/chess_robot_v2_demo.mp4" type="video/mp4">
+                <source src="assets/chess_robot/chess_robot_v1_demo.mp4" type="video/mp4">
               </video>
-              <div class="vcap"><b>Five-Bar Chess Robot (V2 Demo)</b>Automated piece manipulation &amp; board gameplay</div>
+              <div class="vcap"><b>Five-Bar Chess Robot (V1 Prototype Demo)</b>Initial kinematic &amp; vision validation (Sec 6&ndash;13)</div>
             </div>
             <div class="video-card">
               <video controls preload="metadata" muted playsinline>
-                <source src="assets/chess_robot/chess_robot_v1_demo.mp4" type="video/mp4">
+                <source src="assets/chess_robot/chess_robot_v2_demo.mp4" type="video/mp4">
               </video>
-              <div class="vcap"><b>Initial Proof-of-Concept (V1 Demo)</b>Early five-bar kinematic &amp; vision testing (Sec 6&ndash;13)</div>
+              <div class="vcap"><b>Five-Bar Chess Robot (V2 Demo)</b>Automated piece manipulation &amp; gameplay on rigid linkage setup</div>
             </div>
           </div>
         </div>
