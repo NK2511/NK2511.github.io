@@ -737,6 +737,52 @@ footer {
       </div>
     </div>
 
+    <div class="proj-item" style="margin-top:4px;">
+      <div class="proj-thumb">
+        <img src="assets/turmeric_classification_rgby_demo.png" alt="Turmeric Classification and Tracking" loading="lazy">
+      </div>
+      <div class="proj-body">
+        <h3>Automatic Turmeric Rhizome Classification &amp; Spatial Tracking</h3>
+        <p>An end-to-end industrial computer vision framework engineered for real-time morphological segmentation, multi-class quality grading, and kinematic tracking of irregular turmeric rhizomes on industrial conveyor sorting systems.</p>
+        
+        <ul style="margin-top:8px; padding-left:16px;">
+          <li style="font-size:13.5px; color:var(--muted); line-height:1.7; margin-bottom:4px;">
+            <b style="color:var(--subtle); font-weight:500;">Two-Tier Decoupled Architecture:</b> High-speed instance segmentation network for precise contour extraction, coupled with a deep feature classifier in tailored color spaces for multi-class quality grading (Finger, Mother, Broken, Reject).
+          </li>
+          <li style="font-size:13.5px; color:var(--muted); line-height:1.7; margin-bottom:4px;">
+            <b style="color:var(--subtle); font-weight:500;">Parallax-Compensated Kinematic Tracking:</b> Physics-informed spatial tracker that models camera lens radial distortion and conveyor dynamics, maintaining robust piece-identity persistence across high-density clumping, touch contacts, and temporary visual occlusions.
+          </li>
+          <li style="font-size:13.5px; color:var(--muted); line-height:1.7; margin-bottom:4px;">
+            <b style="color:var(--subtle); font-weight:500;">Industrial Edge Telemetry:</b> Optimized for real-time 60+ FPS edge execution using half-precision (FP16) tensor cores, outputting real-time coordinate streams for downstream robotic pick-and-place actuation.
+          </li>
+        </ul>
+
+        <div class="tag-row">
+          <span class="tag">PyTorch</span>
+          <span class="tag">YOLOv8</span>
+          <span class="tag">OpenCV</span>
+          <span class="tag">CUDA FP16</span>
+          <span class="tag">Conveyor Kinematics</span>
+          <span class="tag">Industrial Vision</span>
+        </div>
+
+        <div style="margin-top:14px;">
+          <div class="video-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px,1fr));">
+            <div class="video-card">
+              <video controls preload="metadata" muted playsinline>
+                <source src="assets/turmeric_tracking_5sec_demo.mp4" type="video/mp4">
+              </video>
+              <div class="vcap"><b>Parallax-Compensated Kinematic Tracking</b>Real-time spatial piece tracking (60 FPS)</div>
+            </div>
+            <div class="video-card">
+              <img src="assets/turmeric_classification_rgby_demo.png" alt="Two-Tier Morphological Segmentation & RGBY Quality Grading" style="width:100%; aspect-ratio:16/9; object-fit:cover; display:block; background:var(--surface);">
+              <div class="vcap"><b>Two-Tier Quality Classification (RGBY)</b>Morphological segmentation &amp; grading</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </section>
 
   <!-- PUBLICATIONS -->
@@ -744,7 +790,7 @@ footer {
     <p class="sec-label">Publications</p>
 
     <div class="pub-item">
-      <p class="venue">IFToMM ISRM 2026 &middot; Mechanisms &amp; Machine Science, Springer</p>
+      <p class="venue">IFToMM ISRM 2026 &middot; Published &middot; Mechanisms &amp; Machine Science, Springer</p>
       <h3>An Inverted Compass Model for Passive Dynamic Brachiation</h3>
       <p class="authors">Shivesh Kumar, <b>Nandhith Karthikeyan</b>, Vegesna Siddhartha Varma, Xiao Yang, Petri T. Piiroinen, Rajeevlochana G. Chittawadigi</p>
       <p>Models brachiation as the inverted counterpart of the compass-gait walker. Demonstrates stable limit cycles for passive brachiation along a slope with no actuation &mdash; purely from gravity and impact dynamics.</p>
