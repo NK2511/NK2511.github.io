@@ -496,8 +496,8 @@ section {
   background: var(--surface);
 }
 .video-card.portrait video {
-  aspect-ratio: 478 / 850;
-  max-height: 480px;
+  aspect-ratio: 478 / 680;
+  max-height: 420px;
   object-fit: contain;
   background: var(--surface);
 }
@@ -945,16 +945,16 @@ footer {
         <span class="tag">Inverse Kinematics</span>
       </div>
       <div style="margin-top:14px;">
-        <div class="video-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); max-width: 560px;">
+        <div class="video-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); max-width: 560px; margin: 0 auto;">
           <div class="video-card portrait">
             <video controls preload="metadata" muted playsinline>
-              <source src="assets/chess_robot/chess_robot_v1_demo.mp4" type="video/mp4">
+              <source src="assets/chess_robot/chess_robot_v1_demo.mp4?v=2" type="video/mp4">
             </video>
             <div class="vcap"><b>Five-Bar Chess Robot V1</b>Physical piece actuation</div>
           </div>
           <div class="video-card portrait">
             <video controls preload="metadata" muted playsinline>
-              <source src="assets/chess_robot/chess_robot_v2_demo.mp4" type="video/mp4">
+              <source src="assets/chess_robot/chess_robot_v2_demo.mp4?v=2" type="video/mp4">
             </video>
             <div class="vcap"><b>Five-Bar Chess Robot V2</b>Vision-guided move tracking</div>
           </div>
