@@ -16,6 +16,9 @@ html { scroll-behavior: smooth; }
   --surface: #161b26;
   --surface-hover: #1c2331;
   --border: #1e2535;
+  --card-hover-bg: rgba(22, 27, 38, 0.45);
+  --card-hover-border: rgba(56, 189, 248, 0.15);
+  --card-hover-blur: blur(12px);
   --text: #e2e8f0;
   --muted: #64748b;
   --subtle: #94a3b8;
@@ -32,6 +35,9 @@ html { scroll-behavior: smooth; }
   --surface: #ffffff;
   --surface-hover: #f1f5f9;
   --border: #e2e8f0;
+  --card-hover-bg: rgba(255, 255, 255, 0.55);
+  --card-hover-border: rgba(2, 132, 199, 0.15);
+  --card-hover-blur: blur(12px);
   --text: #0f172a;
   --muted: #64748b;
   --subtle: #334155;
@@ -369,10 +375,17 @@ section {
   gap: 0 20px;
   padding: 18px 16px;
   border-radius: 8px;
-  transition: background 0.15s;
+  border: 1px solid transparent;
+  transition: background 0.25s ease, backdrop-filter 0.25s ease, -webkit-backdrop-filter 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
   margin-bottom: 2px;
 }
-.exp-item:hover { background: var(--surface); }
+.exp-item:hover {
+  background: var(--card-hover-bg);
+  border-color: var(--card-hover-border);
+  backdrop-filter: var(--card-hover-blur);
+  -webkit-backdrop-filter: var(--card-hover-blur);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
 .exp-date {
   font-size: 11.5px;
   color: var(--muted);
@@ -455,10 +468,17 @@ section {
   gap: 0 20px;
   padding: 18px 16px;
   border-radius: 8px;
-  transition: background 0.15s;
+  border: 1px solid transparent;
+  transition: background 0.25s ease, backdrop-filter 0.25s ease, -webkit-backdrop-filter 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
   margin-bottom: 2px;
 }
-.proj-item:hover { background: var(--surface); }
+.proj-item:hover {
+  background: var(--card-hover-bg);
+  border-color: var(--card-hover-border);
+  backdrop-filter: var(--card-hover-blur);
+  -webkit-backdrop-filter: var(--card-hover-blur);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
 .proj-thumb {
   width: 100%;
   border-radius: 6px;
@@ -505,10 +525,17 @@ section {
 .pub-item {
   padding: 18px 16px;
   border-radius: 8px;
-  transition: background 0.15s;
+  border: 1px solid transparent;
+  transition: background 0.25s ease, backdrop-filter 0.25s ease, -webkit-backdrop-filter 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
   margin-bottom: 2px;
 }
-.pub-item:hover { background: var(--surface); }
+.pub-item:hover {
+  background: var(--card-hover-bg);
+  border-color: var(--card-hover-border);
+  backdrop-filter: var(--card-hover-blur);
+  -webkit-backdrop-filter: var(--card-hover-blur);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
 .pub-item .venue {
   font-size: 11.5px;
   color: var(--accent);
