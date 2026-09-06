@@ -49,6 +49,9 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   transition: background 0.25s ease, color 0.25s ease;
+  position: relative;
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 a { color: inherit; text-decoration: none; }
 
@@ -141,8 +144,11 @@ a { color: inherit; text-decoration: none; }
 
 /* ── BACKGROUND BLUEPRINT SCHEMATICS ──────── */
 .bg-blueprint-wrap {
-  position: fixed;
-  inset: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
@@ -154,27 +160,21 @@ a { color: inherit; text-decoration: none; }
   transition: opacity 0.3s ease, filter 0.3s ease;
 }
 
-/* Dark Mode: glowing blueprint cyan / slate lines */
+/* Dark Mode: crisp, bright white/cyan blueprint lines */
 :root .blueprint-item {
-  filter: invert(1) hue-rotate(185deg) brightness(1.7) contrast(1.1) drop-shadow(0 0 1px rgba(56,189,248,0.35));
-  opacity: 0.07;
+  filter: invert(1) brightness(2.6) contrast(1.2) drop-shadow(0 0 1px rgba(255,255,255,0.4));
+  opacity: 0.13;
 }
 
-/* Light Mode: subtle graphite ink drafting lines */
+/* Light Mode: sharp graphite drafting lines */
 [data-theme="light"] .blueprint-item {
-  filter: grayscale(100%) contrast(1.2);
-  opacity: 0.08;
-}
-
-@media (max-width: 1200px) {
-  .blueprint-item {
-    opacity: 0.04 !important;
-  }
+  filter: grayscale(100%) contrast(1.3);
+  opacity: 0.12;
 }
 
 @media (max-width: 900px) {
-  .bg-blueprint-wrap {
-    display: none;
+  .blueprint-item {
+    opacity: 0.06 !important;
   }
 }
 
@@ -607,16 +607,25 @@ footer {
 <body>
 
 <div class="bg-blueprint-wrap" aria-hidden="true">
-  <!-- Top Left: Quadruped Mechanism -->
-  <img src="assets/decorations/QBot_Drawing_alpha.png" class="blueprint-item" style="top:-30px; left:-80px; width:440px; transform:rotate(-8deg);" alt="">
-  <!-- Mid Left: Gear Orthographic Blueprint -->
-  <img src="assets/decorations/f_gear_ortho_alpha.png" class="blueprint-item" style="top:52%; left:-50px; width:340px; transform:rotate(5deg);" alt="">
-  <!-- Top Right: Drone Morphing Schematic -->
-  <img src="assets/decorations/drone_fly_mode_alpha.png" class="blueprint-item" style="top:30px; right:-110px; width:520px; transform:rotate(6deg);" alt="">
-  <!-- Mid Right: Five-Bar Parallel Linkage CAD -->
-  <img src="assets/decorations/chess_bot_background_alpha.png" class="blueprint-item" style="top:44%; right:-70px; width:420px; transform:rotate(-6deg);" alt="">
-  <!-- Bottom Right: Kinematics Derivation -->
-  <img src="assets/decorations/Screenshot_2026_09_06_121749_alpha.png" class="blueprint-item" style="bottom:20px; right:-90px; width:460px; transform:rotate(3deg);" alt="">
+  <!-- Top Left (Near Sidebar / About): Quadruped Mechanism -->
+  <img src="assets/decorations/QBot_Drawing_alpha.png" class="blueprint-item" style="top:40px; left:-50px; width:460px; transform:rotate(-6deg);" alt="">
+  <!-- Top Right (Near About Body): Drone Morphing Schematic -->
+  <img src="assets/decorations/drone_fly_mode_alpha.png" class="blueprint-item" style="top:100px; right:-60px; width:520px; transform:rotate(5deg);" alt="">
+  
+  <!-- Mid Left (Behind Experience / Robocon): Gear Orthographic Drawing -->
+  <img src="assets/decorations/f_gear_ortho_alpha.png" class="blueprint-item" style="top:750px; left:2%; width:380px; transform:rotate(-8deg);" alt="">
+  <!-- Mid Right (Behind Experience / Bipedal): Bipedal Mechanism CAD Wireframe -->
+  <img src="assets/decorations/Screenshot_2026_08_14_081518_alpha.png" class="blueprint-item" style="top:1150px; right:1%; width:440px; transform:rotate(6deg);" alt="">
+
+  <!-- Lower Left (Behind Quadruped RL & Path Planning Projects): Kinematic Linkage Derivation -->
+  <img src="assets/decorations/Screenshot_2026_09_06_121749_alpha.png" class="blueprint-item" style="top:1750px; left:-40px; width:480px; transform:rotate(-4deg);" alt="">
+  <!-- Lower Right (Behind Turmeric & Chess Robot Projects): Five-Bar Parallel Linkage CAD -->
+  <img src="assets/decorations/chess_bot_background_alpha.png" class="blueprint-item" style="top:2350px; right:3%; width:440px; transform:rotate(6deg);" alt="">
+
+  <!-- Bottom Left (Behind Drone Transformer Project): Drone Flying Mode Layout -->
+  <img src="assets/decorations/drone_fly_mode_alpha.png" class="blueprint-item" style="top:3050px; left:4%; width:480px; transform:rotate(-6deg);" alt="">
+  <!-- Bottom Right (Behind Publications & Footer): Quadruped Isometric Assembly -->
+  <img src="assets/decorations/QBot_Drawing_alpha.png" class="blueprint-item" style="top:3550px; right:-40px; width:440px; transform:rotate(8deg);" alt="">
 </div>
 
 <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark theme" title="Toggle Light / Dark mode">
