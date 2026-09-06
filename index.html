@@ -135,6 +135,47 @@ a { color: inherit; text-decoration: none; }
   display: grid;
   grid-template-columns: 300px 1fr;
   min-height: 100vh;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── BACKGROUND BLUEPRINT SCHEMATICS ──────── */
+.bg-blueprint-wrap {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.blueprint-item {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+
+/* Dark Mode: glowing blueprint cyan / slate lines */
+:root .blueprint-item {
+  filter: invert(1) hue-rotate(185deg) brightness(1.7) contrast(1.1) drop-shadow(0 0 1px rgba(56,189,248,0.35));
+  opacity: 0.07;
+}
+
+/* Light Mode: subtle graphite ink drafting lines */
+[data-theme="light"] .blueprint-item {
+  filter: grayscale(100%) contrast(1.2);
+  opacity: 0.08;
+}
+
+@media (max-width: 1200px) {
+  .blueprint-item {
+    opacity: 0.04 !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .bg-blueprint-wrap {
+    display: none;
+  }
 }
 
 /* ── SIDEBAR ─────────────────────────────── */
@@ -564,6 +605,19 @@ footer {
 </style>
 </head>
 <body>
+
+<div class="bg-blueprint-wrap" aria-hidden="true">
+  <!-- Top Left: Quadruped Mechanism -->
+  <img src="assets/decorations/QBot_Drawing_alpha.png" class="blueprint-item" style="top:-30px; left:-80px; width:440px; transform:rotate(-8deg);" alt="">
+  <!-- Mid Left: Gear Orthographic Blueprint -->
+  <img src="assets/decorations/f_gear_ortho_alpha.png" class="blueprint-item" style="top:52%; left:-50px; width:340px; transform:rotate(5deg);" alt="">
+  <!-- Top Right: Drone Morphing Schematic -->
+  <img src="assets/decorations/drone_fly_mode_alpha.png" class="blueprint-item" style="top:30px; right:-110px; width:520px; transform:rotate(6deg);" alt="">
+  <!-- Mid Right: Five-Bar Parallel Linkage CAD -->
+  <img src="assets/decorations/chess_bot_background_alpha.png" class="blueprint-item" style="top:44%; right:-70px; width:420px; transform:rotate(-6deg);" alt="">
+  <!-- Bottom Right: Kinematics Derivation -->
+  <img src="assets/decorations/Screenshot_2026_09_06_121749_alpha.png" class="blueprint-item" style="bottom:20px; right:-90px; width:460px; transform:rotate(3deg);" alt="">
+</div>
 
 <button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark theme" title="Toggle Light / Dark mode">
   <span class="toggle-track">
