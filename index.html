@@ -147,6 +147,24 @@ a { color: inherit; text-decoration: none; }
   padding: 72px 40px 72px 0;
   border-right: 1px solid var(--border);
 }
+.profile-avatar-wrap {
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  padding: 2px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  margin-bottom: 18px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+  display: inline-flex;
+}
+.profile-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
 .sidebar h1 {
   font-size: 26px;
   font-weight: 600;
@@ -445,12 +463,34 @@ section {
 }
 .pub-item:hover { background: var(--surface); }
 .pub-item .venue {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 11.5px;
   color: var(--accent);
-  margin-bottom: 6px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.pub-status {
+  display: inline-block;
+  font-size: 10.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 1px 7px;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+.pub-status.published {
+  color: var(--green);
+  background: rgba(52,211,153,0.1);
+  border: 1px solid rgba(52,211,153,0.25);
+}
+.pub-status.accepted {
+  color: var(--gold);
+  background: rgba(245,158,11,0.1);
+  border: 1px solid rgba(245,158,11,0.25);
 }
 .pub-item h3 { font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.4; margin-bottom: 6px; }
 .pub-item .authors { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
@@ -539,6 +579,9 @@ footer {
 <!-- ── SIDEBAR ─────────────────────────────── -->
 <aside class="sidebar">
   <div>
+    <div class="profile-avatar-wrap">
+      <img src="assets/profile/profile_avatar.png" alt="Nandhith Karthikeyan" class="profile-avatar">
+    </div>
     <h1>Nandhith<br>Karthikeyan</h1>
     <p class="role">Robotics &amp; AI Undergraduate</p>
     <p class="bio">Research interests span legged locomotion, reinforcement learning, and mechatronic system design &mdash; with an emphasis on physics-based simulation, intelligent control, and robotics.</p>
@@ -569,6 +612,9 @@ footer {
   <div class="socials">
     <a href="https://github.com/NK2511" target="_blank" rel="noopener" aria-label="GitHub">
       <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    </a>
+    <a href="https://www.linkedin.com/in/nandhith-karthikeyan-717993316/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64a1.66 1.66 0 0 0-1.66 1.66 1.66 1.66 0 0 0 1.66 1.66 1.66 1.66 0 0 0 1.66-1.66 1.66 1.66 0 0 0-1.66-1.66z"/></svg>
     </a>
     <a href="https://scholar.google.com/citations?user=cRXMF-4AAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar">
       <svg viewBox="0 0 24 24"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/></svg>
@@ -826,6 +872,7 @@ footer {
         </h3>
         <p>Ideated, mechanically designed, and fabricated a reconfigurable multi-modal robotic platform capable of seamlessly transitioning between aerial flight and ground-vehicle mobility. Features custom linkage kinematics for in-situ geometric morphing, combining the agility of a quadcopter with the energy efficiency of wheeled terrestrial traversal.</p>
         <div class="tag-row">
+          <span class="tag gold">Patent Pending</span>
           <span class="tag">Mechanical Design</span>
           <span class="tag">Fusion 360</span>
           <span class="tag">Rapid Prototyping</span>
@@ -839,19 +886,19 @@ footer {
               <video controls preload="metadata" muted playsinline>
                 <source src="assets/drone_transformer/drone_cad_transformation.mp4" type="video/mp4">
               </video>
-              <div class="vcap"><b>Transformation Kinematics (CAD)</b>Reconfigurable morphing linkage animation</div>
+              <div class="vcap"><b>CAD Assembly Animation</b></div>
             </div>
             <div class="video-card">
               <video controls preload="metadata" muted playsinline>
                 <source src="assets/drone_transformer/drone_hardware_transformation.mp4" type="video/mp4">
               </video>
-              <div class="vcap"><b>Physical Mechanism Demonstration</b>Actuated hardware transformation test</div>
+              <div class="vcap"><b>First Flight Test</b></div>
             </div>
             <div class="video-card">
               <video controls preload="metadata" muted playsinline>
                 <source src="assets/drone_transformer/drone_flight_ground_test.mp4" type="video/mp4">
               </video>
-              <div class="vcap"><b>Multi-Modal Locomotion Validation</b>Integrated flight and ground mobility testing</div>
+              <div class="vcap"><b>Ground Locomotion</b></div>
             </div>
           </div>
         </div>
@@ -865,7 +912,7 @@ footer {
     <p class="sec-label">Publications</p>
 
     <div class="pub-item">
-      <p class="venue">IFToMM ISRM 2026 &middot; Published &middot; Mechanisms &amp; Machine Science, Springer</p>
+      <p class="venue">IFToMM ISRM 2026 &middot; Mechanisms &amp; Machine Science, Springer &middot; <span class="pub-status published">Published</span></p>
       <h3>An Inverted Compass Model for Passive Dynamic Brachiation</h3>
       <p class="authors">Shivesh Kumar, <b>Nandhith Karthikeyan</b>, Vegesna Siddhartha Varma, Xiao Yang, Petri T. Piiroinen, Rajeevlochana G. Chittawadigi</p>
       <p>Models brachiation as the inverted counterpart of the compass-gait walker. Demonstrates stable limit cycles for passive brachiation along a slope with no actuation &mdash; purely from gravity and impact dynamics.</p>
@@ -876,14 +923,14 @@ footer {
     </div>
 
     <div class="pub-item" style="margin-top:4px;">
-      <p class="venue">INaCOMM 2025 &middot; Accepted</p>
+      <p class="venue">INaCOMM 2025 &middot; <span class="pub-status accepted">Accepted</span></p>
       <h3>Five-bar Mechanism as Chess Playing Robot using Vision and AI</h3>
       <p class="authors"><b>Nandhith Karthikeyan</b> et al.</p>
       <p>A low-cost, computer-vision-guided robotic chess-playing system using a five-bar parallel mechanism, providing a physical playing experience with AI-driven move planning.</p>
     </div>
 
     <div class="pub-item" style="margin-top:4px;">
-      <p class="venue">IEEE &middot; Accepted</p>
+      <p class="venue">IEEE &middot; <span class="pub-status accepted">Accepted</span></p>
       <h3>Hybrid Method of PSO and L-BFGS-B for Path Planning for n-Serial Revolute Manipulator</h3>
       <p class="authors"><b>Nandhith Karthikeyan</b> et al.</p>
       <p>Proposes a hybrid PSO-LBFGS method for path planning in redundant serial manipulators, combining global search with quasi-Newton local refinement.</p>
@@ -895,6 +942,7 @@ footer {
     <a href="mailto:nandhith.k@gmail.com">nandhith.k@gmail.com</a> &nbsp;&middot;&nbsp;
     <a href="tel:+917483462090" style="color:var(--muted);">+91 74834 62090</a> &nbsp;&middot;&nbsp;
     <a href="https://github.com/NK2511" target="_blank" rel="noopener" style="color:var(--muted);">github.com/NK2511</a> &nbsp;&middot;&nbsp;
+    <a href="https://www.linkedin.com/in/nandhith-karthikeyan-717993316/" target="_blank" rel="noopener" style="color:var(--muted);">LinkedIn</a> &nbsp;&middot;&nbsp;
     <a href="https://scholar.google.com/citations?user=cRXMF-4AAAAJ&hl=en" target="_blank" rel="noopener" style="color:var(--muted);">Google Scholar</a>
   </footer>
 
