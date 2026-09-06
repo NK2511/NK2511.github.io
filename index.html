@@ -386,16 +386,19 @@ section {
 }
 .proj-item:hover { background: var(--surface); }
 .proj-thumb {
-  aspect-ratio: 4/3;
-  border-radius: 5px;
+  width: 100%;
+  border-radius: 6px;
   overflow: hidden;
   border: 1px solid var(--border);
   background: var(--surface);
   align-self: flex-start;
   margin-top: 2px;
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.proj-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.proj-thumb img { width: 100%; height: auto; max-height: 140px; object-fit: contain; display: block; }
 .proj-thumb.icon-thumb {
   display: flex; align-items: center; justify-content: center;
 }
@@ -787,7 +790,7 @@ footer {
           <span class="tag">Inverse Kinematics</span>
         </div>
         <div style="margin-top:14px;">
-          <div class="video-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px,1fr));">
+          <div class="video-stack">
             <div class="video-card">
               <video controls preload="metadata" muted playsinline>
                 <source src="assets/chess_robot/chess_robot_v2_demo.mp4" type="video/mp4">
@@ -798,11 +801,7 @@ footer {
               <video controls preload="metadata" muted playsinline>
                 <source src="assets/chess_robot/chess_robot_v1_demo.mp4" type="video/mp4">
               </video>
-              <div class="vcap"><b>Initial Proof-of-Concept (V1 Demo)</b>Early five-bar kinematic &amp; vision testing</div>
-            </div>
-            <div class="video-card">
-              <img src="assets/chess_robot/chess_robot_v2.png" alt="Five-Bar Chess Robot V2 Setup" style="width:100%; aspect-ratio:16/9; object-fit:cover; display:block; background:var(--surface);">
-              <div class="vcap"><b>Hardware Architecture (V2)</b>Rigid parallel mechanism &amp; overhead vision rig</div>
+              <div class="vcap"><b>Initial Proof-of-Concept (V1 Demo)</b>Early five-bar kinematic &amp; vision testing (Sec 6&ndash;13)</div>
             </div>
           </div>
         </div>
