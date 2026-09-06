@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nandhith Karthikeyan</title>
+<meta name="description" content="Nandhith Karthikeyan — B.Tech Robotics & AI, Amrita Vishwa Vidyapeetham. Research in bipedal locomotion, RL gait learning, and robotic systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+:root {
+  --bg: #0f1117;
+  --surface: #161b26;
+  --surface-hover: #1c2331;
+  --border: #1e2535;
+  --text: #e2e8f0;
+  --muted: #64748b;
+  --subtle: #94a3b8;
+  --accent: #38bdf8;
+  --accent-dim: rgba(56,189,248,0.08);
+  --green: #34d399;
+  --gold: #f59e0b;
+  --toggle-track: #1e2535;
+  --sans: 'Inter', system-ui, sans-serif;
+}
+
+[data-theme="light"] {
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-hover: #f1f5f9;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --muted: #64748b;
+  --subtle: #334155;
+  --accent: #0284c7;
+  --accent-dim: rgba(2,132,199,0.08);
+  --green: #059669;
+  --gold: #d97706;
+  --toggle-track: #cbd5e1;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+a { color: inherit; text-decoration: none; }
+
+/* ── THEME TOGGLE ────────────────────────── */
+.theme-toggle {
+  position: fixed;
+  top: 24px;
+  right: 28px;
+  z-index: 999;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.toggle-track {
+  width: 52px;
+  height: 28px;
+  background: var(--toggle-track);
+  border: 1px solid var(--border);
+  border-radius: 9999px;
+  position: relative;
+  transition: background 0.25s ease, border-color 0.25s ease;
+  display: flex;
+  align-items: center;
+  padding: 0 3px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.15);
+}
+.toggle-circle {
+  width: 22px;
+  height: 22px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  position: absolute;
+  left: 2px;
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  color: var(--accent);
+}
+[data-theme="light"] .toggle-circle {
+  transform: translateX(24px);
+  color: #f59e0b;
+  background: #ffffff;
+}
+.toggle-icon {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+.moon-icon {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+[data-theme="light"] .moon-icon {
+  opacity: 0;
+  transform: scale(0.5) rotate(90deg);
+}
+.sun-icon {
+  opacity: 0;
+  transform: scale(0.5) rotate(-90deg);
+}
+[data-theme="light"] .sun-icon {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+/* ── LAYOUT ─────────────────────────────── */
+.layout {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  min-height: 100vh;
+}
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; padding: 0 20px; }
+  .sidebar { position: relative; height: auto; padding: 56px 0 0; border-right: none; border-bottom: 1px solid var(--border); margin-bottom: 48px; }
+  .main { padding: 0 0 80px; border-left: none; }
+}
+
+/* ── SIDEBAR ─────────────────────────────── */
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 72px 40px 72px 0;
+  border-right: 1px solid var(--border);
+}
+.sidebar h1 {
+  font-size: 26px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+.sidebar .role {
+  font-size: 13.5px;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+.sidebar .bio {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.75;
+}
+.sidebar .meta {
+  margin-top: 14px;
+  font-size: 12.5px;
+  color: var(--muted);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.sidebar .meta span { display: flex; align-items: center; gap: 6px; }
+.sidebar .meta svg { width: 13px; height: 13px; flex-shrink: 0; }
+.sidebar .meta .highlight { color: var(--subtle); font-weight: 500; }
+
+/* nav */
+.nav {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 7px 0;
+  transition: color 0.15s;
+}
+.nav a::before {
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.2s;
+  flex-shrink: 0;
+}
+.nav a:hover, .nav a.active { color: var(--text); }
+.nav a:hover::before, .nav a.active::before { width: 44px; }
+
+/* socials */
+.socials {
+  margin-top: auto;
+  display: flex;
+  gap: 14px;
+  padding-top: 28px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.socials a {
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  transition: color 0.15s;
+}
+.socials a:hover { color: var(--text); }
+.socials svg { width: 19px; height: 19px; fill: currentColor; }
+.socials .resume-btn {
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid rgba(56,189,248,0.25);
+  border-radius: 4px;
+  padding: 5px 12px;
+  transition: background 0.15s, color 0.15s;
+}
+.socials .resume-btn:hover { background: var(--accent-dim); color: var(--text); }
+
+/* ── MAIN ────────────────────────────────── */
+.main {
+  padding: 72px 0 72px 56px;
+}
+section {
+  margin-bottom: 80px;
+  scroll-margin-top: 60px;
+}
+
+/* section label */
+.sec-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.sec-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── ABOUT ───────────────────────────────── */
+.about-body {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.8;
+  max-width: 62ch;
+}
+.about-body p { margin-bottom: 14px; }
+.about-body p:last-child { margin-bottom: 0; }
+.about-body a { color: var(--accent); }
+.about-body a:hover { color: var(--text); }
+.about-body b { color: var(--subtle); font-weight: 500; }
+
+/* skills grid */
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 24px;
+}
+.skill-tag {
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--subtle);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 3px 10px;
+}
+
+/* ── EXPERIENCE ──────────────────────────── */
+.exp-item {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 0 20px;
+  padding: 18px 16px;
+  border-radius: 8px;
+  transition: background 0.15s;
+  margin-bottom: 2px;
+}
+.exp-item:hover { background: var(--surface); }
+.exp-date {
+  font-size: 11.5px;
+  color: var(--muted);
+  padding-top: 3px;
+  line-height: 1.4;
+}
+.exp-body h3 { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+.exp-body .org { font-size: 13px; color: var(--subtle); margin-bottom: 10px; }
+.exp-body p { font-size: 13.5px; color: var(--muted); line-height: 1.7; }
+.exp-body ul { padding-left: 16px; }
+.exp-body li { font-size: 13.5px; color: var(--muted); line-height: 1.7; margin-bottom: 4px; }
+.tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.tag {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--accent);
+  background: var(--accent-dim);
+  border-radius: 9999px;
+  padding: 2px 10px;
+}
+.tag.green { color: var(--green); background: rgba(52,211,153,0.07); }
+.tag.gold { color: var(--gold); background: rgba(245,158,11,0.07); }
+
+/* ── VIDEO DEMOS ─────────────────────────── */
+.video-section-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 28px 0 14px 0;
+}
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+.video-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.video-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--surface);
+  transition: border-color 0.15s;
+}
+.video-card:hover { border-color: rgba(56,189,248,0.3); }
+.video-card video {
+  width: 100%;
+  display: block;
+  aspect-ratio: 16/9;
+  object-fit: cover;
+  background: #000;
+}
+.video-card .vcap {
+  padding: 9px 12px;
+  font-size: 12px;
+  color: var(--muted);
+  border-top: 1px solid var(--border);
+  line-height: 1.4;
+}
+.video-card .vcap b { color: var(--subtle); display: block; margin-bottom: 2px; }
+
+/* ── PROJECTS ────────────────────────────── */
+.proj-item {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  gap: 0 20px;
+  padding: 18px 16px;
+  border-radius: 8px;
+  transition: background 0.15s;
+  margin-bottom: 2px;
+}
+.proj-item:hover { background: var(--surface); }
+.proj-thumb {
+  aspect-ratio: 4/3;
+  border-radius: 5px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  align-self: flex-start;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.proj-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.proj-thumb.icon-thumb {
+  display: flex; align-items: center; justify-content: center;
+}
+.proj-body h3 {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.proj-body h3 .ext-icon { color: var(--muted); width: 13px; height: 13px; flex-shrink: 0; transition: color 0.15s; }
+.proj-item:hover .proj-body h3 .ext-icon { color: var(--accent); }
+.proj-body p { font-size: 13.5px; color: var(--muted); line-height: 1.7; }
+.proj-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent);
+  margin-top: 10px;
+  transition: color 0.15s;
+}
+.proj-link:hover { color: var(--text); }
+.proj-link svg { width: 11px; height: 11px; }
+
+/* ── PUBLICATIONS ────────────────────────── */
+.pub-item {
+  padding: 18px 16px;
+  border-radius: 8px;
+  transition: background 0.15s;
+  margin-bottom: 2px;
+}
+.pub-item:hover { background: var(--surface); }
+.pub-item .venue {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+.pub-item h3 { font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.4; margin-bottom: 6px; }
+.pub-item .authors { font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+.pub-item .authors b { color: var(--subtle); font-weight: 500; }
+.pub-item p { font-size: 13.5px; color: var(--muted); line-height: 1.7; }
+
+/* ── FOOTER ──────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding-top: 28px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+footer a { color: var(--accent); }
+
+@media (max-width: 600px) {
+  .proj-item { grid-template-columns: 1fr; }
+  .proj-thumb { display: none; }
+  .exp-item { grid-template-columns: 1fr; }
+  .exp-date { margin-bottom: 6px; }
+}
+</style>
+</head>
+<body>
+
+<button id="theme-toggle" class="theme-toggle" aria-label="Toggle light/dark theme" title="Toggle Light / Dark mode">
+  <span class="toggle-track">
+    <span class="toggle-circle">
+      <svg class="toggle-icon moon-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      <svg class="toggle-icon sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+    </span>
+  </span>
+</button>
+
+<div class="layout">
+
+<!-- ── SIDEBAR ─────────────────────────────── -->
+<aside class="sidebar">
+  <div>
+    <h1>Nandhith<br>Karthikeyan</h1>
+    <p class="role">Robotics &amp; AI Undergraduate</p>
+    <p class="bio">Research interests span legged locomotion, reinforcement learning, and mechatronic system design &mdash; with an emphasis on physics-based simulation, intelligent control, and robotics.</p>
+
+    <div class="meta">
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
+        <span>Amrita Vishwa Vidyapeetham, Bengaluru</span>
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+        <span>B.Tech Robotics &amp; AI &nbsp;|&nbsp; <span class="highlight">Final Year</span></span>
+      </span>
+      <span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span>CGPA <span class="highlight">9.16</span></span>
+      </span>
+    </div>
+
+    <nav class="nav" aria-label="On-page navigation">
+      <a href="#about" id="nav-about">About</a>
+      <a href="#experience" id="nav-experience">Experience</a>
+      <a href="#projects" id="nav-projects">Projects</a>
+      <a href="#publications" id="nav-publications">Publications</a>
+    </nav>
+  </div>
+
+  <div class="socials">
+    <a href="https://github.com/NK2511" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    </a>
+    <a href="https://scholar.google.com/citations?user=cRXMF-4AAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar">
+      <svg viewBox="0 0 24 24"><path d="M5.242 13.769L0 9.5 12 0l12 9.5-5.242 4.269C17.548 11.249 14.978 9.5 12 9.5c-2.977 0-5.548 1.748-6.758 4.269zM12 10a7 7 0 1 0 0 14 7 7 0 0 0 0-14z"/></svg>
+    </a>
+    <a href="mailto:nandhith.k@gmail.com" aria-label="Email">
+      <svg viewBox="0 0 24 24"><path d="M1.5 8.67v8.58a3 3 0 003 3h15a3 3 0 003-3V8.67l-8.928 5.493a3 3 0 01-3.144 0L1.5 8.67z"/><path d="M22.5 6.908V6.75a3 3 0 00-3-3h-15a3 3 0 00-3 3v.158l9.714 5.978a1.5 1.5 0 001.572 0L22.5 6.908z"/></svg>
+    </a>
+    <a class="resume-btn" href="Final_Resume_2.pdf" target="_blank" rel="noopener">Resume &uarr;</a>
+  </div>
+</aside>
+
+<!-- ── MAIN ─────────────────────────────────── -->
+<main class="main">
+
+  <!-- ABOUT -->
+  <section id="about">
+    <p class="sec-label">About</p>
+    <div class="about-body">
+      <p>I am a final-year B.Tech student in Robotics and Artificial Intelligence at Amrita Vishwa Vidyapeetham, Bengaluru (CGPA&nbsp;9.16). My research interests lie at the intersection of <b>legged locomotion</b>, <b>reinforcement learning</b>, and <b>mechanical design</b> &mdash; with a focus on dynamic simulation, physics-based modelling, and intelligent control systems.</p>
+      <p>I recently worked on bipedal humanoid locomotion at <b>Xterra Robotics &times; IIT Kanpur</b> on a DRDO-funded bipedal humanoid platform, covering full-stack development from MJCF modelling and ankle kinematics through RL gait training and gait optimization. Earlier, as <b>Mechanical Design Lead</b> for the Robocon team, our group qualified for the Semifinals in 2025 and 2026.</p>
+    </div>
+    <div class="skills-grid">
+      <span class="skill-tag">Reinforcement Learning</span>
+      <span class="skill-tag">RSL-RL</span>
+      <span class="skill-tag">MuJoCo &middot; mjwarp</span>
+      <span class="skill-tag">PyBullet</span>
+      <span class="skill-tag">PPO &middot; SAC</span>
+      <span class="skill-tag">Legged Locomotion</span>
+      <span class="skill-tag">Fusion 360</span>
+      <span class="skill-tag">RecurDyn</span>
+      <span class="skill-tag">Python &middot; C++</span>
+      <span class="skill-tag">ROS</span>
+      <span class="skill-tag">Arduino &middot; ESP32</span>
+      <span class="skill-tag">Raspberry Pi</span>
+      <span class="skill-tag">OpenCV</span>
+      <span class="skill-tag">MATLAB</span>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <p class="sec-label">Experience</p>
+
+    <div class="exp-item">
+      <div>
+        <div class="proj-thumb" style="background:#ffffff; padding:10px 8px; display:flex; align-items:center; justify-content:center; margin-bottom:8px;">
+          <img src="assets/Xterra_Logo.jpg" alt="Xterra Robotics" style="width:100%; height:auto; max-height:100%; object-fit:contain;" loading="lazy">
+        </div>
+        <div class="exp-date">Dec 2025&ndash;<br>2026</div>
+      </div>
+      <div class="exp-body">
+        <h3>RL &amp; Mechatronics Intern</h3>
+        <p class="org">Xterra Robotics &times; IIT Kanpur (DRDO-funded Bipedal Humanoid project)</p>
+        <ul>
+          <li>Authored the URDF/MJCF model (12-DOF bipedal lower body), specifying inertial and collision properties for simulation stability.</li>
+          <li>Developed a physics-based gait scaling algorithm minimising Cost of Transport across joint work, motor heating, and foot impact losses.</li>
+          <li>Extended the <b>ASIMOV</b> framework for bipedal humanoid locomotion using <b>RSL-RL</b> and GPU-accelerated <b>MuJoCo (mjwarp)</b> across seven gait experiments, achieving stable velocity tracking up to 3&nbsp;m/s in simulation.</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag">ASIMOV</span>
+          <span class="tag">RSL-RL</span>
+          <span class="tag">mjwarp</span>
+          <span class="tag">MuJoCo</span>
+          <span class="tag">PPO</span>
+          <span class="tag">URDF / MJCF</span>
+          <span class="tag">Cost of Transport</span>
+          <span class="tag green">IIT Kanpur</span>
+        </div>
+
+        <p class="video-section-label" style="margin-top:20px;">Demo videos</p>
+        <div class="video-stack">
+          <div class="video-card">
+            <video controls preload="metadata" muted playsinline>
+              <source src="assets/COT_Gait_Angad.mp4" type="video/mp4">
+            </video>
+            <div class="vcap"><b>Bipedal Humanoid &mdash; CoT-Optimised Gait</b>Walking policy trained with cost-of-transport stride objective</div>
+          </div>
+          <div class="video-card">
+            <video controls preload="metadata" muted playsinline>
+              <source src="assets/Angad_Dynamic_Squatting.mp4" type="video/mp4">
+            </video>
+            <div class="vcap"><b>Bipedal Humanoid &mdash; Dynamic Squatting</b>Dynamic trajectory validation in simulation</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item" style="margin-top:6px;">
+      <div class="exp-date">Oct 2024&ndash;<br>Jun 2026</div>
+      <div class="exp-body">
+        <h3>Mechanical Design Lead</h3>
+        <p class="org">Robocon Team, Amrita Vishwa Vidyapeetham</p>
+        <ul>
+          <li>Design, modelling, and manufacture of mechanical systems for autonomous and manually operated competition robots.</li>
+          <li>Led a multidisciplinary student team; qualified for the ABU Robocon Semifinals in both 2025 and 2026.</li>
+        </ul>
+        <div class="tag-row">
+          <span class="tag">Fusion 360</span>
+          <span class="tag">RecurDyn</span>
+          <span class="tag">Mechanical Design</span>
+          <span class="tag gold">Robocon 2025 &amp; 2026 Semifinalist</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-item" style="margin-top:6px;">
+      <div class="exp-date">2023&ndash;<br>Present</div>
+      <div class="exp-body">
+        <h3>B.Tech in Robotics and Artificial Intelligence</h3>
+        <p class="org">Amrita Vishwa Vidyapeetham, Bengaluru &mdash; CGPA 9.16</p>
+        <p>Class Representative &middot; ACROM Club Executive &middot; Robocon Design Lead</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <p class="sec-label">Projects</p>
+
+    <div class="proj-item">
+      <div class="proj-thumb">
+        <img src="assets/Bioloid_Quadruped.png" alt="Bioloid Quadruped" loading="lazy">
+      </div>
+      <div class="proj-body">
+        <h3>
+          Bioloid Quadruped RL
+          <svg class="ext-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+        </h3>
+        <p>Hierarchical RL framework for an 8-DOF quadruped: low-level continuous SAC experts specialise in individual motor primitives (walk, turn left, turn right); a high-level Discrete-SAC navigator selects among them every 0.5&nbsp;s given the relative target waypoint. Training and evaluation across PyBullet and MuJoCo achieved stable waypoint navigation with roughly 100&times; the sample efficiency of a monolithic policy.</p>
+        <div class="tag-row">
+          <span class="tag">SAC</span><span class="tag">PyBullet</span><span class="tag">MuJoCo</span><span class="tag">PyTorch</span>
+        </div>
+        <div style="margin-top:14px;">
+          <div class="video-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px,1fr));">
+            <div class="video-card">
+              <video controls preload="metadata" muted playsinline>
+                <source src="assets/Bioloid_Quadruped_Controlled.mp4" type="video/mp4">
+              </video>
+              <div class="vcap"><b>Quadruped &mdash; Controlled Navigation</b>Hierarchical SAC policy in simulation</div>
+            </div>
+          </div>
+        </div>
+        <a class="proj-link" href="https://github.com/NK2511/Bioloid_Quadruped_RL" target="_blank" rel="noopener">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+          github.com/NK2511/Bioloid_Quadruped_RL
+        </a>
+      </div>
+    </div>
+
+
+    <div class="proj-item" style="margin-top:4px;">
+      <div class="proj-thumb">
+        <img src="assets/PSO_LBFGS_Image.png" alt="PSO L-BFGS Path Planning" loading="lazy">
+      </div>
+      <div class="proj-body">
+        <h3>
+          Hybrid L-BFGS &ndash; PSO Path Planning
+          <svg class="ext-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"/></svg>
+        </h3>
+        <p>Hybrid global/local optimisation method for joint-space path planning in redundant serial revolute manipulators. Particle Swarm Optimisation provides broad coverage to escape local minima; L-BFGS-B refines the best candidate using gradient information, combining the two approaches for efficient, high-quality solutions. <em>Accepted, IEEE.</em></p>
+        <div class="tag-row">
+          <span class="tag">PSO</span><span class="tag">L-BFGS</span><span class="tag">Python</span><span class="tag green">IEEE Publication</span>
+        </div>
+        <div style="margin-top:14px;">
+          <div class="video-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px,1fr));">
+            <div class="video-card">
+              <video controls preload="metadata" muted playsinline>
+                <source src="assets/PSO_LBFGS.mp4" type="video/mp4">
+              </video>
+              <div class="vcap"><b>Hybrid PSO &ndash; L-BFGS-B Planning</b>Dynamic trajectory optimisation and convergence</div>
+            </div>
+          </div>
+        </div>
+        <a class="proj-link" href="https://github.com/NK2511/Hybrid-LBFGS-PSO-Path-Planning-Implementation" target="_blank" rel="noopener">
+          <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+          github.com/NK2511/Hybrid-LBFGS-PSO-Path-Planning-Implementation
+        </a>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section id="publications">
+    <p class="sec-label">Publications</p>
+
+    <div class="pub-item">
+      <p class="venue">IFToMM ISRM 2026 &middot; Mechanisms &amp; Machine Science, Springer</p>
+      <h3>An Inverted Compass Model for Passive Dynamic Brachiation</h3>
+      <p class="authors">Shivesh Kumar, <b>Nandhith Karthikeyan</b>, Vegesna Siddhartha Varma, Xiao Yang, Petri T. Piiroinen, Rajeevlochana G. Chittawadigi</p>
+      <p>Models brachiation as the inverted counterpart of the compass-gait walker. Demonstrates stable limit cycles for passive brachiation along a slope with no actuation &mdash; purely from gravity and impact dynamics.</p>
+      <a class="proj-link" href="https://doi.org/10.1007/978-3-032-29469-2_38" target="_blank" rel="noopener">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+        doi.org/10.1007/978-3-032-29469-2_38
+      </a>
+    </div>
+
+    <div class="pub-item" style="margin-top:4px;">
+      <p class="venue">INaCOMM 2025 &middot; Accepted</p>
+      <h3>Five-bar Mechanism as Chess Playing Robot using Vision and AI</h3>
+      <p class="authors"><b>Nandhith Karthikeyan</b> et al.</p>
+      <p>A low-cost, computer-vision-guided robotic chess-playing system using a five-bar parallel mechanism, providing a physical playing experience with AI-driven move planning.</p>
+    </div>
+
+    <div class="pub-item" style="margin-top:4px;">
+      <p class="venue">IEEE &middot; Accepted</p>
+      <h3>Hybrid Method of PSO and L-BFGS-B for Path Planning for n-Serial Revolute Manipulator</h3>
+      <p class="authors"><b>Nandhith Karthikeyan</b> et al.</p>
+      <p>Proposes a hybrid PSO-LBFGS method for path planning in redundant serial manipulators, combining global search with quasi-Newton local refinement.</p>
+    </div>
+
+    <div style="margin-top:20px;">
+      <a class="proj-link" href="https://scholar.google.com/citations?user=cRXMF-4AAAAJ&hl=en" target="_blank" rel="noopener">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clip-rule="evenodd"/></svg>
+        View full citation record on Google Scholar &rarr;
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <a href="mailto:nandhith.k@gmail.com">nandhith.k@gmail.com</a> &nbsp;&middot;&nbsp;
+    <a href="tel:+917483462090" style="color:var(--muted);">+91 74834 62090</a> &nbsp;&middot;&nbsp;
+    <a href="https://github.com/NK2511" target="_blank" rel="noopener" style="color:var(--muted);">github.com/NK2511</a> &nbsp;&middot;&nbsp;
+    <a href="https://scholar.google.com/citations?user=cRXMF-4AAAAJ&hl=en" target="_blank" rel="noopener" style="color:var(--muted);">Google Scholar</a>
+  </footer>
+
+</main>
+</div>
+
+<script>
+// Navigation Spy
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav a');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.remove('active'));
+      const active = document.querySelector('.nav a[href="#' + e.target.id + '"]');
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+sections.forEach(s => io.observe(s));
+
+// Theme Toggle (Light / Dark mode)
+const themeToggle = document.getElementById('theme-toggle');
+const root = document.documentElement;
+
+const savedTheme = localStorage.getItem('theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+if (savedTheme === 'light') {
+  root.setAttribute('data-theme', 'light');
+}
+
+themeToggle.addEventListener('click', () => {
+  const currentTheme = root.getAttribute('data-theme');
+  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+  if (newTheme === 'light') {
+    root.setAttribute('data-theme', 'light');
+  } else {
+    root.removeAttribute('data-theme');
+  }
+  localStorage.setItem('theme', newTheme);
+});
+</script>
+
+</body>
+</html>
