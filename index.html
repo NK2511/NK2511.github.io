@@ -138,19 +138,6 @@ a { color: inherit; text-decoration: none; }
   transform: scale(1) rotate(0deg);
 }
 
-/* ── CIRCULAR THEME VIEW TRANSITION ─────── */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation: none;
-  mix-blend-mode: normal;
-}
-::view-transition-old(root) {
-  z-index: 1;
-}
-::view-transition-new(root) {
-  z-index: 9999;
-}
-
 /* ── LAYOUT ─────────────────────────────── */
 .layout {
   max-width: 1120px;
@@ -1120,7 +1107,7 @@ const io = new IntersectionObserver(entries => {
 }, { rootMargin: '-30% 0px -60% 0px' });
 sections.forEach(s => io.observe(s));
 
-// Theme Toggle (Light / Dark mode) with expanding circular reveal
+// Theme Toggle (Light / Dark mode)
 const themeToggle = document.getElementById('theme-toggle');
 const root = document.documentElement;
 
@@ -1129,53 +1116,15 @@ if (savedTheme === 'light') {
   root.setAttribute('data-theme', 'light');
 }
 
-themeToggle.addEventListener('click', (e) => {
+themeToggle.addEventListener('click', () => {
   const currentTheme = root.getAttribute('data-theme');
   const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-
-  const applyTheme = () => {
-    if (newTheme === 'light') {
-      root.setAttribute('data-theme', 'light');
-    } else {
-      root.removeAttribute('data-theme');
-    }
-    localStorage.setItem('theme', newTheme);
-  };
-
-  if (!document.startViewTransition || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    applyTheme();
-    return;
+  if (newTheme === 'light') {
+    root.setAttribute('data-theme', 'light');
+  } else {
+    root.removeAttribute('data-theme');
   }
-
-  const rect = themeToggle.getBoundingClientRect();
-  const x = e.clientX && e.clientX > 0 ? e.clientX : (rect.left + rect.width / 2);
-  const y = e.clientY && e.clientY > 0 ? e.clientY : (rect.top + rect.height / 2);
-
-  const endRadius = Math.hypot(
-    Math.max(x, window.innerWidth - x),
-    Math.max(y, window.innerHeight - y)
-  );
-
-  const transition = document.startViewTransition(() => {
-    applyTheme();
-  });
-
-  transition.ready.then(() => {
-    const clipPath = [
-      `circle(0px at ${x}px ${y}px)`,
-      `circle(${endRadius}px at ${x}px ${y}px)`
-    ];
-    document.documentElement.animate(
-      {
-        clipPath: clipPath
-      },
-      {
-        duration: 500,
-        easing: 'ease-in-out',
-        pseudoElement: '::view-transition-new(root)'
-      }
-    );
-  });
+  localStorage.setItem('theme', newTheme);
 });
 </script>
 
