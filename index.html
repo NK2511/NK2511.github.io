@@ -16,9 +16,10 @@ html { scroll-behavior: smooth; }
   --surface: #161b26;
   --surface-hover: #1c2331;
   --border: #1e2535;
-  --card-hover-bg: rgba(22, 27, 38, 0.45);
-  --card-hover-border: rgba(56, 189, 248, 0.15);
-  --card-hover-blur: blur(12px);
+  --card-hover-bg: transparent;
+  --card-hover-border: rgba(255, 255, 255, 0.45);
+  --card-hover-glow: 0 0 14px rgba(255, 255, 255, 0.16), inset 0 0 14px rgba(255, 255, 255, 0.03);
+  --card-hover-blur: blur(2.5px);
   --text: #e2e8f0;
   --muted: #64748b;
   --subtle: #94a3b8;
@@ -35,9 +36,10 @@ html { scroll-behavior: smooth; }
   --surface: #ffffff;
   --surface-hover: #f1f5f9;
   --border: #e2e8f0;
-  --card-hover-bg: rgba(255, 255, 255, 0.55);
-  --card-hover-border: rgba(2, 132, 199, 0.15);
-  --card-hover-blur: blur(12px);
+  --card-hover-bg: transparent;
+  --card-hover-border: rgba(0, 0, 0, 0.25);
+  --card-hover-glow: 0 0 14px rgba(0, 0, 0, 0.08);
+  --card-hover-blur: blur(2.5px);
   --text: #0f172a;
   --muted: #64748b;
   --subtle: #334155;
@@ -398,7 +400,7 @@ section {
   border-color: var(--card-hover-border);
   backdrop-filter: var(--card-hover-blur);
   -webkit-backdrop-filter: var(--card-hover-blur);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  box-shadow: var(--card-hover-glow);
 }
 .exp-date {
   font-size: 11.5px;
@@ -491,7 +493,7 @@ section {
   border-color: var(--card-hover-border);
   backdrop-filter: var(--card-hover-blur);
   -webkit-backdrop-filter: var(--card-hover-blur);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  box-shadow: var(--card-hover-glow);
 }
 .proj-thumb {
   width: 100%;
@@ -548,7 +550,7 @@ section {
   border-color: var(--card-hover-border);
   backdrop-filter: var(--card-hover-blur);
   -webkit-backdrop-filter: var(--card-hover-blur);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+  box-shadow: var(--card-hover-glow);
 }
 .pub-item .venue {
   font-size: 11.5px;
