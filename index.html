@@ -229,6 +229,13 @@ a { color: inherit; text-decoration: none; }
     width: min(260px, 75vw) !important;
     height: auto !important;
   }
+  #brachiator-canvas {
+    top: 3800px !important;
+    left: 8px !important;
+    right: auto !important;
+    width: min(340px, 94vw) !important;
+    height: auto !important;
+  }
   #transforming-drone-canvas {
     top: 5100px !important;
     left: 12px !important;
@@ -705,8 +712,8 @@ footer {
   <!-- 4. Mid Right (Projects: Differential Drive / Quadruped Locomotion): Interactive 3D Scroll-Driven Quadruped CAD -->
   <canvas id="quadruped-canvas" class="blueprint-item" width="480" height="480" style="top:2750px; right:-40px; width:520px; transform:rotate(5deg);"></canvas>
 
-  <!-- 5. Center-Left (Projects: Turmeric Rhizome Tracking / Passive Brachiation): Passive Brachiation Kinematics Vector Diagram -->
-  <img src="assets/decorations/kinematic_diagram_pdf_alpha.png?v=2" class="blueprint-item" style="top:3850px; left:12%; width:560px; transform:rotate(-4deg);" alt="">
+  <!-- 5. Center-Left (Projects / Publications: Passive Dynamic Brachiation): Interactive Dynamic Passive Brachiation Animation -->
+  <canvas id="brachiator-canvas" class="blueprint-item" width="800" height="400" style="top:3800px; left:6%; width:640px; transform:rotate(-2deg);"></canvas>
 
   <!-- 6. Right (Projects: Five-Bar Mechanism Chess Robot): Chess Bot Mechanism CAD Drawing -->
   <img src="assets/decorations/chess_bot_alpha.png?v=2" class="blueprint-item" style="top:4800px; right:-40px; width:520px; transform:rotate(5deg);" alt="">
@@ -1117,8 +1124,8 @@ themeToggle.addEventListener('click', () => {
   const animationConfigs = [
     {
       id: 'qbot-canvas',
-      folder: 'qbot_rotating',
-      totalFrames: 97,
+      folder: 'qbot_360',
+      totalFrames: 192,
       baseRotDesktop: -5,
       baseRotMobile: -2,
       isInitialView: true,
@@ -1147,6 +1154,16 @@ themeToggle.addEventListener('click', () => {
       baseRotDesktop: 5,
       baseRotMobile: 2.5,
       isInitialView: false
+    },
+    {
+      id: 'brachiator-canvas',
+      folder: 'brachiator_anim',
+      totalFrames: 120,
+      baseRotDesktop: -2,
+      baseRotMobile: -1,
+      isInitialView: false,
+      translateXDesktop: 220,
+      translateXMobile: 80
     },
     {
       id: 'transforming-drone-canvas',
@@ -1208,10 +1225,6 @@ themeToggle.addEventListener('click', () => {
           const { canvas, cfg, drawFrame } = item;
           const baseRot = isMobile ? cfg.baseRotMobile : cfg.baseRotDesktop;
 
-          // Parallax slow drift
-          const parallaxY = scrollY * 0.12;
-          canvas.style.transform = `translate3d(0, ${parallaxY}px, 0) rotate(${baseRot}deg)`;
-
           const rect = canvas.getBoundingClientRect();
           let progress = 0;
 
@@ -1224,6 +1237,12 @@ themeToggle.addEventListener('click', () => {
             const totalTravel = vh + (rect.height || 480);
             progress = Math.max(0, Math.min(1, (vh - rect.top) / totalTravel));
           }
+
+          // Parallax slow drift & horizontal translation (e.g. brachiator swinging across screen)
+          const parallaxY = scrollY * 0.12;
+          const travelX = isMobile ? (cfg.translateXMobile || 0) : (cfg.translateXDesktop || 0);
+          const parallaxX = travelX ? ((progress - 0.25) * travelX) : 0;
+          canvas.style.transform = `translate3d(${parallaxX}px, ${parallaxY}px, 0) rotate(${baseRot}deg)`;
 
           const frameIdx = Math.min(cfg.totalFrames - 1, Math.floor(progress * cfg.totalFrames));
           drawFrame(frameIdx);
