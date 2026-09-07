@@ -3,5 +3,14 @@
 *.ppt
 *.py
 *.tmp
+*.xlsx
+*.avi
+/*.mp4
+/*.jpg
+/*.png
+/*.pdf
+!Final_Resume_2.pdf
+/scratch/
 .DS_Store
 Thumbs.db
+

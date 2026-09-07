@@ -205,6 +205,34 @@ a { color: inherit; text-decoration: none; }
   .blueprint-item:nth-child(11) { top: 6500px !important; left: 12px !important;  right: auto !important; transform: rotate(2.5deg) !important; }
   .blueprint-item:nth-child(12) { top: 7150px !important; right: 12px !important; left: auto !important;  transform: rotate(-2deg) !important; }
   .blueprint-item:nth-child(13) { top: 7800px !important; left: 12px !important;  right: auto !important; transform: rotate(2.5deg) !important; }
+  #qbot-canvas {
+    top: 40px !important;
+    left: 12px !important;
+    right: auto !important;
+    width: min(260px, 75vw) !important;
+    height: auto !important;
+  }
+  #transforming-drone-canvas {
+    top: 620px !important;
+    right: 12px !important;
+    left: auto !important;
+    width: min(250px, 72vw) !important;
+    height: auto !important;
+  }
+  #modular-link-canvas {
+    top: 1950px !important;
+    right: 12px !important;
+    left: auto !important;
+    width: min(230px, 68vw) !important;
+    height: auto !important;
+  }
+  #arduino-canvas {
+    top: 2600px !important;
+    left: 12px !important;
+    right: auto !important;
+    width: min(250px, 72vw) !important;
+    height: auto !important;
+  }
 }
 
 /* ── SIDEBAR ─────────────────────────────── */
@@ -662,25 +690,25 @@ footer {
 <body>
 
 <div class="bg-blueprint-wrap" aria-hidden="true">
-  <!-- 1. Top Left (Sidebar Header): Quadruped Isometric CAD -->
-  <img src="assets/decorations/QBot_Drawing_alpha.png?v=2" class="blueprint-item" style="top:40px; left:-60px; width:500px; transform:rotate(-6deg);" alt="">
-  <!-- 2. Top Right (About Body): Drone Top-View Orthographic Drawing -->
-  <img src="assets/decorations/drone_top_view_alpha.png?v=2" class="blueprint-item" style="top:220px; right:-50px; width:440px; transform:rotate(5deg);" alt="">
+  <!-- 1. Top Left (Sidebar Header): Interactive 3D Scroll-Driven QBot Rotation CAD -->
+  <canvas id="qbot-canvas" class="blueprint-item" width="480" height="480" style="top:40px; left:-60px; width:500px; transform:rotate(-6deg);"></canvas>
+  <!-- 2. Top Right (About Body): Interactive 3D Scroll-Driven Transforming Drone CAD -->
+  <canvas id="transforming-drone-canvas" class="blueprint-item" width="480" height="480" style="top:220px; right:-50px; width:440px; transform:rotate(5deg);"></canvas>
   
   <!-- 3. Upper Left/Center (Experience: Bipedal Humanoid Research): Kinematics Vector Diagram -->
   <img src="assets/decorations/kinematic_diagram_pdf_alpha.png?v=2" class="blueprint-item" style="top:850px; left:4%; width:560px; transform:rotate(-4deg);" alt="">
-  <!-- 4. Upper Right (Experience: Bipedal Ankle & Robocon): Bipedal Ankle CAD Wireframe -->
-  <img src="assets/decorations/ankle_wireframe_alpha.png?v=2" class="blueprint-item" style="top:1500px; right:-40px; width:480px; transform:rotate(6deg);" alt="">
+  <!-- 4. Upper Right (Experience: Modular Link Exploding Animation): Interactive 3D Scroll-Driven Exploding CAD -->
+  <canvas id="modular-link-canvas" class="blueprint-item" width="480" height="480" style="top:1500px; right:2%; width:390px; transform:rotate(6deg);"></canvas>
 
-  <!-- 5. Mid Left (Projects: Bioloid Quadruped RL): Planetary Ring Gear Drafting -->
-  <img src="assets/decorations/f_gear_ortho_alpha.png?v=2" class="blueprint-item" style="top:2250px; left:-50px; width:440px; transform:rotate(-7deg);" alt="">
+  <!-- 5. Mid Left (Projects: Bioloid Quadruped RL / Electronics): Interactive 3D Scroll-Driven Arduino Rotation CAD -->
+  <canvas id="arduino-canvas" class="blueprint-item" width="480" height="480" style="top:2250px; left:-50px; width:440px; transform:rotate(-7deg);"></canvas>
   <!-- 6. Mid Right (Projects: Differential Drive Path Planning): Linkage Derivation & Equations -->
   <img src="assets/decorations/linkage_kinematics_alpha.png?v=2" class="blueprint-item" style="top:2750px; right:-40px; width:520px; transform:rotate(5deg);" alt="">
 
   <!-- 7. Mid Left (RL Math & Optimization): Bellman Optimality Equation -->
   <img src="assets/decorations/bellman_eq_alpha.png?v=2" class="blueprint-item" style="top:3250px; left:-30px; width:580px; transform:rotate(-3deg);" alt="">
 
-  <!-- 8. Center-Right (Projects: Turmeric Rhizome Tracking): Five-Bar Parallel Linkage CAD -->
+  <!-- 8. Center-Right (Projects: Turmeric Rhizome Tracking): Chess Bot Mechanism CAD Drawing -->
   <img src="assets/decorations/chess_bot_alpha.png?v=2" class="blueprint-item" style="top:3850px; left:14%; width:500px; transform:rotate(-5deg);" alt="">
   <!-- 9. Right: Robocon R2 Robot CAD -->
   <img src="assets/decorations/robocon_r2_alpha.png?v=2" class="blueprint-item" style="top:4700px; right:-40px; width:540px; transform:rotate(4deg);" alt="">
@@ -1086,6 +1114,127 @@ themeToggle.addEventListener('click', () => {
   }
   localStorage.setItem('theme', newTheme);
 });
+
+// ── 3D HOLOGRAPHIC BLUEPRINT SCROLL-DRIVEN ANIMATIONS ────────
+(function() {
+  const animationConfigs = [
+    {
+      id: 'qbot-canvas',
+      folder: 'qbot_rotating',
+      totalFrames: 97,
+      baseRotDesktop: -6,
+      baseRotMobile: -2,
+      isTopElement: true,
+      elementPageTop: 40
+    },
+    {
+      id: 'transforming-drone-canvas',
+      folder: 'transforming_drone',
+      totalFrames: 48,
+      baseRotDesktop: 5,
+      baseRotMobile: 2.5,
+      isTopElement: true,
+      elementPageTop: 220
+    },
+    {
+      id: 'modular-link-canvas',
+      folder: 'modular_link',
+      totalFrames: 97,
+      baseRotDesktop: 6,
+      baseRotMobile: 2.5,
+      isTopElement: false
+    },
+    {
+      id: 'arduino-canvas',
+      folder: 'arduino_rotation',
+      totalFrames: 192,
+      baseRotDesktop: -7,
+      baseRotMobile: -2.5,
+      isTopElement: false
+    }
+  ];
+
+  const instances = [];
+
+  animationConfigs.forEach(cfg => {
+    const canvas = document.getElementById(cfg.id);
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const frames = [];
+    let currentFrameIndex = -1;
+
+    for (let i = 0; i < cfg.totalFrames; i++) {
+      const img = new Image();
+      const frameNum = String(i).padStart(3, '0');
+      img.src = `assets/decorations/${cfg.folder}/f_${frameNum}.webp`;
+      img.onload = () => {
+        if (currentFrameIndex === -1 && i === 0) {
+          drawFrame(0);
+        }
+      };
+      frames.push(img);
+    }
+
+    function drawFrame(idx) {
+      if (idx === currentFrameIndex) return;
+      const img = frames[idx];
+      if (img && img.complete) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        currentFrameIndex = idx;
+      }
+    }
+
+    instances.push({
+      canvas,
+      cfg,
+      drawFrame
+    });
+  });
+
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY || window.pageYOffset || 0;
+        const isMobile = window.innerWidth <= 860;
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+
+        instances.forEach(item => {
+          const { canvas, cfg, drawFrame } = item;
+          const baseRot = isMobile ? cfg.baseRotMobile : cfg.baseRotDesktop;
+
+          // Parallax slow drift
+          const parallaxY = scrollY * 0.12;
+          canvas.style.transform = `translate3d(0, ${parallaxY}px, 0) rotate(${baseRot}deg)`;
+
+          const rect = canvas.getBoundingClientRect();
+          let progress = 0;
+
+          if (cfg.isTopElement) {
+            // For elements visible near the top on load, animate smoothly from 0 to 1 as user scrolls down past them
+            const exitScroll = (cfg.elementPageTop || 0) + (rect.height || 480) + 120;
+            progress = Math.max(0, Math.min(1, scrollY / exitScroll));
+          } else {
+            // For elements further down, start at frame 0 when entering bottom, finish at final frame when exiting top
+            const totalTravel = vh + (rect.height || 480);
+            progress = Math.max(0, Math.min(1, (vh - rect.top) / totalTravel));
+          }
+
+          const frameIdx = Math.min(cfg.totalFrames - 1, Math.floor(progress * cfg.totalFrames));
+          drawFrame(frameIdx);
+        });
+
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  onScroll();
+})();
 </script>
 
 </body>
