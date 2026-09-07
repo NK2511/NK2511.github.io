@@ -205,20 +205,6 @@ a { color: inherit; text-decoration: none; }
   .blueprint-item:nth-child(11) { top: 6500px !important; left: 12px !important;  right: auto !important; transform: rotate(2.5deg) !important; }
   .blueprint-item:nth-child(12) { top: 7150px !important; right: 12px !important; left: auto !important;  transform: rotate(-2deg) !important; }
   .blueprint-item:nth-child(13) { top: 7800px !important; left: 12px !important;  right: auto !important; transform: rotate(2.5deg) !important; }
-  #qbot-canvas {
-    top: 40px !important;
-    left: 12px !important;
-    right: auto !important;
-    width: min(260px, 75vw) !important;
-    height: auto !important;
-  }
-  #transforming-drone-canvas {
-    top: 620px !important;
-    right: 12px !important;
-    left: auto !important;
-    width: min(250px, 72vw) !important;
-    height: auto !important;
-  }
   #modular-link-canvas {
     top: 1950px !important;
     right: 12px !important;
@@ -231,6 +217,20 @@ a { color: inherit; text-decoration: none; }
     left: 12px !important;
     right: auto !important;
     width: min(250px, 72vw) !important;
+    height: auto !important;
+  }
+  #transforming-drone-canvas {
+    top: 5200px !important;
+    left: 12px !important;
+    right: auto !important;
+    width: min(280px, 78vw) !important;
+    height: auto !important;
+  }
+  #qbot-canvas {
+    top: 7150px !important;
+    right: 12px !important;
+    left: auto !important;
+    width: min(280px, 78vw) !important;
     height: auto !important;
   }
 }
@@ -690,10 +690,10 @@ footer {
 <body>
 
 <div class="bg-blueprint-wrap" aria-hidden="true">
-  <!-- 1. Top Left (Sidebar Header): Interactive 3D Scroll-Driven QBot Rotation CAD -->
-  <canvas id="qbot-canvas" class="blueprint-item" width="480" height="480" style="top:40px; left:-60px; width:500px; transform:rotate(-6deg);"></canvas>
-  <!-- 2. Top Right (About Body): Interactive 3D Scroll-Driven Transforming Drone CAD -->
-  <canvas id="transforming-drone-canvas" class="blueprint-item" width="480" height="480" style="top:220px; right:-50px; width:440px; transform:rotate(5deg);"></canvas>
+  <!-- 1. Top Left (Sidebar Header): Quadruped Isometric CAD -->
+  <img src="assets/decorations/QBot_Drawing_alpha.png?v=2" class="blueprint-item" style="top:40px; left:-60px; width:500px; transform:rotate(-6deg);" alt="">
+  <!-- 2. Top Right (About Body): Drone Top-View Orthographic Drawing -->
+  <img src="assets/decorations/drone_top_view_alpha.png?v=2" class="blueprint-item" style="top:220px; right:-50px; width:440px; transform:rotate(5deg);" alt="">
   
   <!-- 3. Upper Left/Center (Experience: Bipedal Humanoid Research): Kinematics Vector Diagram -->
   <img src="assets/decorations/kinematic_diagram_pdf_alpha.png?v=2" class="blueprint-item" style="top:850px; left:4%; width:560px; transform:rotate(-4deg);" alt="">
@@ -710,16 +710,16 @@ footer {
 
   <!-- 8. Center-Right (Projects: Turmeric Rhizome Tracking): Chess Bot Mechanism CAD Drawing -->
   <img src="assets/decorations/chess_bot_alpha.png?v=2" class="blueprint-item" style="top:3850px; left:14%; width:500px; transform:rotate(-5deg);" alt="">
-  <!-- 9. Right: Robocon R2 Robot CAD -->
-  <img src="assets/decorations/robocon_r2_alpha.png?v=2" class="blueprint-item" style="top:4700px; right:-40px; width:540px; transform:rotate(4deg);" alt="">
+  <!-- 9. Right (Projects: Five-Bar Chess / Transformer): Interactive 3D Scroll-Driven Transforming Drone CAD -->
+  <canvas id="transforming-drone-canvas" class="blueprint-item" width="480" height="480" style="top:4700px; right:-40px; width:580px; transform:rotate(4deg);"></canvas>
 
   <!-- 10. Left: Five-Bar Mechanism Kinematics Analysis -->
   <img src="assets/decorations/five_bar_kinematics_alpha.png?v=2" class="blueprint-item" style="top:5550px; left:-40px; width:520px; transform:rotate(-6deg);" alt="">
   <!-- 11. Right (Projects: Drone Ground Locomotion): Drone Ground Car Mode CAD Wireframe -->
   <img src="assets/decorations/drone_car_mode_alpha.png?v=2" class="blueprint-item" style="top:6300px; right:-40px; width:560px; transform:rotate(6deg);" alt="">
 
-  <!-- 12. Left (Publications & Badges): Drone Aerial Flight Mode Layout -->
-  <img src="assets/decorations/drone_fly_mode_alpha.png?v=2" class="blueprint-item" style="top:7050px; left:-50px; width:620px; transform:rotate(-5deg);" alt="">
+  <!-- 12. Left (Publications & Badges): Interactive 3D Scroll-Driven QBot Rotation CAD -->
+  <canvas id="qbot-canvas" class="blueprint-item" width="480" height="480" style="top:7050px; left:-50px; width:560px; transform:rotate(-5deg);"></canvas>
   <!-- 13. Right (Publications & Achievements): Basketball Shooting Mechanism Trajectory CAD -->
   <img src="assets/decorations/basketball_shooting_alpha.png?v=2" class="blueprint-item" style="top:7480px; right:3%; width:520px; transform:rotate(6deg);" alt="">
 </div>
@@ -1119,38 +1119,32 @@ themeToggle.addEventListener('click', () => {
 (function() {
   const animationConfigs = [
     {
-      id: 'qbot-canvas',
-      folder: 'qbot_rotating',
-      totalFrames: 97,
-      baseRotDesktop: -6,
-      baseRotMobile: -2,
-      isTopElement: true,
-      elementPageTop: 40
-    },
-    {
-      id: 'transforming-drone-canvas',
-      folder: 'transforming_drone',
-      totalFrames: 48,
-      baseRotDesktop: 5,
-      baseRotMobile: 2.5,
-      isTopElement: true,
-      elementPageTop: 220
-    },
-    {
       id: 'modular-link-canvas',
       folder: 'modular_link',
       totalFrames: 97,
       baseRotDesktop: 6,
-      baseRotMobile: 2.5,
-      isTopElement: false
+      baseRotMobile: 2.5
     },
     {
       id: 'arduino-canvas',
       folder: 'arduino_rotation',
       totalFrames: 192,
       baseRotDesktop: -7,
-      baseRotMobile: -2.5,
-      isTopElement: false
+      baseRotMobile: -2.5
+    },
+    {
+      id: 'transforming-drone-canvas',
+      folder: 'transforming_drone',
+      totalFrames: 48,
+      baseRotDesktop: 4,
+      baseRotMobile: 2.5
+    },
+    {
+      id: 'qbot-canvas',
+      folder: 'qbot_rotating',
+      totalFrames: 97,
+      baseRotDesktop: -5,
+      baseRotMobile: -2
     }
   ];
 
@@ -1208,18 +1202,11 @@ themeToggle.addEventListener('click', () => {
           const parallaxY = scrollY * 0.12;
           canvas.style.transform = `translate3d(0, ${parallaxY}px, 0) rotate(${baseRot}deg)`;
 
+          // Viewport progress: starts at frame 0 as top enters viewport bottom,
+          // finishes at final frame as bottom leaves viewport top
           const rect = canvas.getBoundingClientRect();
-          let progress = 0;
-
-          if (cfg.isTopElement) {
-            // For elements visible near the top on load, animate smoothly from 0 to 1 as user scrolls down past them
-            const exitScroll = (cfg.elementPageTop || 0) + (rect.height || 480) + 120;
-            progress = Math.max(0, Math.min(1, scrollY / exitScroll));
-          } else {
-            // For elements further down, start at frame 0 when entering bottom, finish at final frame when exiting top
-            const totalTravel = vh + (rect.height || 480);
-            progress = Math.max(0, Math.min(1, (vh - rect.top) / totalTravel));
-          }
+          const totalTravel = vh + (rect.height || 480);
+          const progress = Math.max(0, Math.min(1, (vh - rect.top) / totalTravel));
 
           const frameIdx = Math.min(cfg.totalFrames - 1, Math.floor(progress * cfg.totalFrames));
           drawFrame(frameIdx);
